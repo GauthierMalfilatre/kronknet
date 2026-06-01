@@ -4,6 +4,7 @@
 ** File description:
 ** Init the server
 */
+#include "kronknet/server/callback/callback.h"
 #include "kronknet/server/pool/pool.h"
 #include "kronknet/server/server.h"
 #include <asm-generic/socket.h>
@@ -13,7 +14,7 @@
 #include <sys/poll.h>
 #include <sys/socket.h>
 
-static int knServer_bind(knServer *server)
+static int __knServer_bind(knServer *server)
 {
     int opt = 1;
 
@@ -28,20 +29,29 @@ static int knServer_bind(knServer *server)
     return 0;
 }
 
+static void __knServer_basics(knServer *server)
+{
+    server->running = true;
+    server->logs = false;
+    server->onConnection = NULL;
+    server->onWrite = NULL;
+    server->onRead = NULL;
+    server->onDisconnection = NULL;
+}
+
 int knServer_init(knServer *server, size_t port)
 {
     if (!server) {
         return -1;
     }
-    server->running = true;
-    server->logs = false;
+    __knServer_basics(server);
     server->fd = socket(AF_INET, SOCK_STREAM, 0);
     if (server->fd == -1)
         return -1;
     server->addr.sin_family = AF_INET;
     server->addr.sin_port = htons(port);
     server->addr.sin_addr.s_addr = htonl(INADDR_ANY);
-    if (knServer_bind(server) == -1)
+    if (__knServer_bind(server) == -1)
         return -1;
     if (listen(server->fd, SOMAXCONN) == -1)
         return -1;

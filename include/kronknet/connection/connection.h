@@ -37,4 +37,7 @@ typedef struct kronknet_connection_s {
 knConnection *knConnection_accept(const knServer *server);
 void knConnection_destroy(knConnection *conn);
 
+void *knConnection_getData(knConnection *conn);
+void knConnection_setData(knConnection *conn, void *data);
+
 #endif /* KRONKNET_CONNECTION_H */

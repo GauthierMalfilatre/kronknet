@@ -27,5 +27,7 @@ int knServer_accept(knServer *server)
             knServer_err(server, "Connection [%d]: failed to add to pool", newConn->fd);
     }
     knServer_out(server, "Connection [%d]: added to pool", newConn->fd);
+    if (server->onConnection)
+        server->onConnection(server, newConn);
     return 0;
 }
