@@ -18,7 +18,7 @@ static int __knServer_onPollin([[maybe_unused]] knServer *server, [[maybe_unused
 {
     if (server->pool.pollfds[*fdIdx].fd == server->fd) {
         knServer_out(server, "New connection request received");
-        // knServer_acceptConnection(server);
+        knServer_accept(server);
     }
     return 0;
 }

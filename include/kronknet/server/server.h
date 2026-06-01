@@ -9,7 +9,7 @@
     #include <sys/socket.h>
     #include <netinet/in.h>
     #include <stdbool.h>
-    #include "kronknet/server/pool/pool.h"
+    #include "pool/pool.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 /**
@@ -37,6 +37,7 @@ int knServer_init(knServer *server, size_t port);
 void knServer_clear(knServer *server);
 void knServer_destroy(knServer *server);
 
+int knServer_accept(knServer *server);
 int knServer_run(knServer *server);
 
 void knServer_out(const knServer *server, const char *format, ...);
