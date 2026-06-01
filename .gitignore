@@ -1,0 +1,19 @@
+# IDE Folders
+.vscode/
+.idea/
+
+# cache && json compiling file
+.cache/
+compile_commands.json
+
+# Binary and obj files
+Release/
+Debug/
+build/
+libs/
+
+*.a
+*.o
+
+# Target
+libkronknet.a
