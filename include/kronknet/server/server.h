@@ -37,6 +37,7 @@ int knServer_init(knServer *server, size_t port);
 void knServer_clear(knServer *server);
 void knServer_destroy(knServer *server);
 
+int knServer_accept(knServer *server);
 int knServer_run(knServer *server);
 
 void knServer_out(const knServer *server, const char *format, ...);

@@ -6,9 +6,10 @@
 */
 #ifndef KRONKNET_CONNECTION_H
     #define KRONKNET_CONNECTION_H
-    #include "kronknet/server/server.h"
     #include <netinet/in.h>
     #include <sys/socket.h>
+
+typedef struct kronknet_server_s knServer;
 
 ///////////////////////////////////////////////////////////////////////////////
 /**
