@@ -112,9 +112,9 @@ To get a local copy up and running follow these simple example steps.
 ### Prerequisites
 
 have CMake installed
-    ```sh
-    apt install cmake
-    ```
+```sh
+apt install cmake
+```
 
 ### Installation
 
