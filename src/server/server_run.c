@@ -5,6 +5,7 @@
 ** Run the server. main loop.
 */
 #include "kronknet/server/callback/callback.h"
+#include "kronknet/connection/connection.h"
 #include "kronknet/server/server.h"
 #include <stddef.h>
 #include <stdio.h>
@@ -24,6 +25,17 @@ static int __knServer_onPollin([[maybe_unused]] knServer *server, [[maybe_unused
         }
     } else {
         knServer_out(server, "Data received");
+        switch (knServer_receiveData(server, server->pool.conns[*fdIdx])) {
+            case KNEVTERR:
+                knServer_err(server, "Connection [%d]: Error while receiving data", server->pool.conns[*fdIdx]->fd); break;
+            case KNEVTKICK:
+                // knServer_kickAtIndex(server, fdIdx);
+                knConnection_destroy(server->pool.conns[*fdIdx]);
+                knPool_unregisterOnIndex(&server->pool, *fdIdx);
+                (*fdIdx)--;
+            default:
+                break;
+        }
     }
     return 0;
 }

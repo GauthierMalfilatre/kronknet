@@ -12,6 +12,12 @@
     #include "kronknet/server/callback/callback.h"
     #include "pool/pool.h"
 
+    #define KNBUFFSIZ  8192
+    #define KNEVTOK    0
+    #define KNEVTERR  -1
+    #define KNEVTMEM  -2
+    #define KNEVTKICK -3
+
 ///////////////////////////////////////////////////////////////////////////////
 /**
  * @struct  server_s
@@ -45,8 +51,10 @@ int knServer_init(knServer *server, size_t port);
 void knServer_clear(knServer *server);
 void knServer_destroy(knServer *server);
 
+int knServer_receiveData(knServer *server, knConnection *conn);
 int knServer_accept(knServer *server);
 int knServer_run(knServer *server);
+
 
 void knServer_out(const knServer *server, const char *format, ...);
 void knServer_err(const knServer *server, const char *format, ...);
