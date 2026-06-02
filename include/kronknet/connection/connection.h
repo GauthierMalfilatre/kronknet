@@ -22,7 +22,7 @@ typedef struct kronknet_server_s knServer;
 typedef struct kronknet_connection_s {
 
     int                fd;           //!< The file descriptor of the client
-    int                port;         //!< The port using by the connection
+    uint16_t           port;         //!< The port using by the connection
     socklen_t          addr_length;  //!< The length of the addr
     struct sockaddr_in addr;         //!< The actual addr
 

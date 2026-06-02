@@ -45,8 +45,8 @@ typedef struct kronknet_server_s {
 ///////////////////////////////////////////////////////////////////////////////
 
 // TODO: Documentation
-knServer *knServer_create(size_t port);
-int knServer_init(knServer *server, size_t port);
+knServer *knServer_create(uint16_t port);
+int knServer_init(knServer *server, uint16_t port);
 
 void knServer_clear(knServer *server);
 void knServer_destroy(knServer *server);
