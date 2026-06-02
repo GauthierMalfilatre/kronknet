@@ -21,7 +21,10 @@ int knServer_receiveData(knServer *server, knConnection *conn)
     char kronkbuffer[KNBUFFSIZ];
     ssize_t reads = recv(conn->fd, kronkbuffer, sizeof(kronkbuffer), 0);
     if (reads > 0) {
-        knServer_out(server, "Connection [%d]: \"%*s\"", conn->fd, reads, kronkbuffer);
+        knServer_out(server, "Connection [%d]: %*s", conn->fd, reads, kronkbuffer);
+        if (server->onRead) {
+            server->onRead(conn, kronkbuffer, reads);
+        }
     } else if (reads == 0) {
         knServer_err(server, "Connection [%d]: connection lost", conn->fd);
         return KNEVTKICK;
