@@ -22,6 +22,8 @@ static int __knServer_onPollin([[maybe_unused]] knServer *server, [[maybe_unused
         if (knServer_accept(server) == -1) {
             knServer_err(server, "Connection request declined");
         }
+    } else {
+        knServer_out(server, "Data received");
     }
     return 0;
 }
@@ -29,11 +31,11 @@ static int __knServer_onPollin([[maybe_unused]] knServer *server, [[maybe_unused
 static int __knServer_processPoll(knServer *server)
 {
     for (size_t i = 0; i < server->pool.count; ++i) {
-        if (server->pool.pollfds[i].revents == POLLIN
+        if (server->pool.pollfds[i].revents & POLLIN
             && __knServer_onPollin(server, &i) == -1) {
                 return -1;
         }
-        if (server->pool.pollfds[i].revents == POLLOUT
+        if (server->pool.pollfds[i].revents & POLLOUT
             && __knServer_onPollout(server, i) == -1) {
                 return -1;
         }

@@ -14,7 +14,7 @@ OBJ = $(SRC:.c=.o)
 
 CC = gcc
 
-NAME = test
+NAME = server
 
 all: $(NAME)
 
