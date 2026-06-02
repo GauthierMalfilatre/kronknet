@@ -20,4 +20,4 @@ libkronknet.a
 
 # Test
 *.out
-server
+test/server
