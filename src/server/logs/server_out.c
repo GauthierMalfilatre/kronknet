@@ -13,7 +13,7 @@ void knServer_out(const knServer *server, const char *format, ...)
 {
     va_list ap;
 
-    if (!server->logs) {
+    if (!server || !server->logs) {
         return;
     }
     char out[strlen(format) + strlen("[KRONKNET - OK] ") + 2];
