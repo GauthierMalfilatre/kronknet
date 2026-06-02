@@ -53,10 +53,14 @@ void knServer_destroy(knServer *server);
 
 int knServer_receiveData(knServer *server, knConnection *conn);
 int knServer_accept(knServer *server);
+
+int knServer_runOnce(knServer *server, ssize_t timeoutMs);
 int knServer_run(knServer *server);
 
 void knServer_kick(knServer *server, knConnection *conn);
 void knServer_kickAtIndex(knServer *server, size_t idx);
+
+bool knServer_isRunning(const knServer *server);
 
 void knServer_out(const knServer *server, const char *format, ...);
 void knServer_err(const knServer *server, const char *format, ...);

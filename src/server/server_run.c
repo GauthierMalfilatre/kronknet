@@ -10,6 +10,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <sys/poll.h>
+#include <sys/types.h>
 
 static int __knServer_onPollout([[maybe_unused]] knServer *server, [[maybe_unused]] size_t fdIdx)
 {
@@ -53,6 +54,18 @@ static int __knServer_processPoll(knServer *server)
     return 0;
 }
 
+int knServer_runOnce(knServer *server, ssize_t timeoutMs)
+{
+    server->status = poll(server->pool.pollfds, server->pool.count, timeoutMs);
+    if (server->status == -1) {
+        return -1;
+    }
+    if (__knServer_processPoll(server) == -1) {
+        return -1;
+    }
+    return 0;
+}
+
 int knServer_run(knServer *server)
 {
     if (!server) {
@@ -60,12 +73,8 @@ int knServer_run(knServer *server)
     }
     knServer_out(server, "Server running on port %d", ntohs(server->addr.sin_port));
     while (server->running) {
-        server->status = poll(server->pool.pollfds, server->pool.count, -1);
-        if (server->status == -1) {
-            return -1;
-        }
-        if (__knServer_processPoll(server) == -1) {
-            return -1;
+        if (knServer_runOnce(server, -1) == -1) {
+            break;
         }
     }
     return server->status;
