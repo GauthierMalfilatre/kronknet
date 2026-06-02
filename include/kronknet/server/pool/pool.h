@@ -69,7 +69,7 @@ int knPool_unregister(knPool *pool, int fd);
  * @return        0 on success, -1 otherwise
  */
 ///////////////////////////////////////////////////////////////////////////////
-int knPool_unregisterOnIndex(knPool *pool, size_t index);
+int knPool_unregisterAtIndex(knPool *pool, size_t index);
 ///////////////////////////////////////////////////////////////////////////////
 
 

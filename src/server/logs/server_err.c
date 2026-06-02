@@ -13,7 +13,7 @@ void knServer_err(const knServer *server, const char *format, ...)
 {
     va_list ap;
 
-    if (!server->logs) {
+    if (!server || !server->logs) {
         return;
     }
     char err[strlen(format) + strlen("[KRONKNET - ERR] ") + 2];

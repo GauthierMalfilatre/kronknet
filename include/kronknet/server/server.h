@@ -9,7 +9,14 @@
     #include <sys/socket.h>
     #include <netinet/in.h>
     #include <stdbool.h>
+    #include "kronknet/server/callback/callback.h"
     #include "pool/pool.h"
+
+    #define KNBUFFSIZ  8192
+    #define KNEVTOK    0
+    #define KNEVTERR  -1
+    #define KNEVTMEM  -2
+    #define KNEVTKICK -3
 
 ///////////////////////////////////////////////////////////////////////////////
 /**
@@ -27,18 +34,36 @@ typedef struct kronknet_server_s {
     struct sockaddr_in addr;     //!< The address of the server
     knPool             pool;     //!< The pool of pollfds to look on
 
+    void              *data;     //!< Data like a struct given by the user
+
+    knConnectionCb     onConnection;
+    knReadCb           onRead;
+    knEventCb          onWrite;
+    knConnectionCb     onDisconnection;
+
 } knServer;
 ///////////////////////////////////////////////////////////////////////////////
 
 // TODO: Documentation
-knServer *knServer_create(size_t port);
-int knServer_init(knServer *server, size_t port);
+knServer *knServer_create(uint16_t port);
+int knServer_init(knServer *server, uint16_t port);
 
 void knServer_clear(knServer *server);
 void knServer_destroy(knServer *server);
 
+int knServer_receiveData(knServer *server, knConnection *conn);
 int knServer_accept(knServer *server);
+
+int knServer_runOnce(knServer *server, ssize_t timeoutMs);
 int knServer_run(knServer *server);
+
+void knServer_kick(knServer *server, knConnection *conn);
+void knServer_kickAtIndex(knServer *server, size_t idx);
+
+bool knServer_isRunning(const knServer *server);
+
+void *knServer_getData(const knServer *server);
+void knServer_setData(knServer *server, void *data);
 
 void knServer_out(const knServer *server, const char *format, ...);
 void knServer_err(const knServer *server, const char *format, ...);

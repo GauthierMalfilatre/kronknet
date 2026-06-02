@@ -47,18 +47,19 @@ int knPool_registerFd(knPool *pool, int fd, int events)
     return 0;
 }
 
+// FIXME: ensure capacity if needed.
 int knPool_registerConnection(knPool *pool, knConnection *connection)
 {
-    size_t newCount = 0;
+    // size_t newCount = 0;
 
     if (!pool) {
         return -1;
     }
-    newCount = pool->count + 1;
-    if (__knPool_ensureCapacity(pool, newCount) == -1) {
-        return -1;
-    }
-    pool->conns[pool->count] = connection;
-    pool->count = newCount;
+    // newCount = pool->count + 1;
+    // if (__knPool_ensureCapacity(pool, newCount) == -1) {
+    //     return -1;
+    // }
+    pool->conns[pool->count - 1] = connection;
+    // pool->count = newCount;
     return 0;
 }

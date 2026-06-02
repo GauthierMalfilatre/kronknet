@@ -4,16 +4,34 @@
 ** File description:
 ** Init the server
 */
+#include "kronknet/server/callback/callback.h"
 #include "kronknet/server/pool/pool.h"
 #include "kronknet/server/server.h"
-#include <asm-generic/socket.h>
 #include <netinet/in.h>
 #include <stdbool.h>
 #include <stddef.h>
+#include <stdint.h>
 #include <sys/poll.h>
 #include <sys/socket.h>
+#include <unistd.h>
+#include <fcntl.h>
 
-static int knServer_bind(knServer *server)
+static int __knServer_nonBlocking(int fd)
+{
+    int flags;
+
+    flags = fcntl(fd, F_GETFL, 0);
+    if (flags == -1) {
+        return -1;
+    }
+    flags = flags | O_NONBLOCK;
+    if (fcntl(fd, F_SETFL, flags) == -1) {
+        return -1;
+    }
+    return 0;
+}
+
+static int __knServer_bind(knServer *server)
 {
     int opt = 1;
 
@@ -28,25 +46,44 @@ static int knServer_bind(knServer *server)
     return 0;
 }
 
-int knServer_init(knServer *server, size_t port)
+static void __knServer_basics(knServer *server)
+{
+    server->running = true;
+    server->logs = false;
+    server->onConnection = NULL;
+    server->onWrite = NULL;
+    server->onRead = NULL;
+    server->onDisconnection = NULL;
+}
+
+int knServer_init(knServer *server, uint16_t port)
 {
     if (!server) {
         return -1;
     }
-    server->running = true;
-    server->logs = false;
+    __knServer_basics(server);
     server->fd = socket(AF_INET, SOCK_STREAM, 0);
     if (server->fd == -1)
         return -1;
+    if (__knServer_nonBlocking(server->fd)) {
+        close(server->fd);
+        return -1;
+    }
     server->addr.sin_family = AF_INET;
     server->addr.sin_port = htons(port);
     server->addr.sin_addr.s_addr = htonl(INADDR_ANY);
-    if (knServer_bind(server) == -1)
+    if (__knServer_bind(server) == -1) {
+        close(server->fd);
         return -1;
-    if (listen(server->fd, SOMAXCONN) == -1)
+    }
+    if (listen(server->fd, SOMAXCONN) == -1) {
+        close(server->fd);
         return -1;
-    if (knPool_init(&server->pool) == -1)
+    }
+    if (knPool_init(&server->pool) == -1) {
+        close(server->fd);
         return -1;
+    }
     knPool_registerFd(&server->pool, server->fd, POLLIN);
     return knPool_registerConnection(&server->pool, NULL);
 }
