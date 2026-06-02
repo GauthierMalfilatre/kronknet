@@ -31,8 +31,8 @@ int knServer_accept(knServer *server)
     if (server->onConnection) {
         if (server->onConnection(server, newConn) == -1) {
             knServer_err(server, "Connetction [%d]: Error on \"onConnection\" callback", newConn->fd);
-            // knConnection_destroy(newConn);
-            // knPool_unregisterOnIndex(&server->pool, server->pool.count - 1);
+            knConnection_destroy(newConn);
+            knPool_unregisterAtIndex(&server->pool, server->pool.count - 1);
             return KNEVTKICK;
         }
     }

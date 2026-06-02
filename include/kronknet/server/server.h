@@ -55,6 +55,8 @@ int knServer_receiveData(knServer *server, knConnection *conn);
 int knServer_accept(knServer *server);
 int knServer_run(knServer *server);
 
+void knServer_kick();
+void knServer_kickAtIndex();
 
 void knServer_out(const knServer *server, const char *format, ...);
 void knServer_err(const knServer *server, const char *format, ...);

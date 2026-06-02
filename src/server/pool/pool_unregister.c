@@ -17,13 +17,13 @@ int knPool_unregister(knPool *pool, int fd)
     }
     for (size_t i = 0; i < pool->count; ++i) {
         if (pool->pollfds[i].fd == fd) {
-            return knPool_unregisterOnIndex(pool, i);
+            return knPool_unregisterAtIndex(pool, i);
         }
     }
     return -1;
 }
 
-int knPool_unregisterOnIndex(knPool *pool, size_t index)
+int knPool_unregisterAtIndex(knPool *pool, size_t index)
 {
     if (!pool || index == -1UL || index >= pool->count) {
         return -1;

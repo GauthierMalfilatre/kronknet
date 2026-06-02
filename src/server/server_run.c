@@ -31,7 +31,7 @@ static int __knServer_onPollin([[maybe_unused]] knServer *server, [[maybe_unused
             case KNEVTKICK:
                 // knServer_kickAtIndex(server, fdIdx);
                 knConnection_destroy(server->pool.conns[*fdIdx]);
-                knPool_unregisterOnIndex(&server->pool, *fdIdx);
+                knPool_unregisterAtIndex(&server->pool, *fdIdx);
                 (*fdIdx)--;
             default:
                 break;
