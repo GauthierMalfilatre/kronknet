@@ -29,10 +29,8 @@ static int __knServer_onPollin([[maybe_unused]] knServer *server, [[maybe_unused
             case KNEVTERR:
                 knServer_err(server, "Connection [%d]: Error while receiving data", server->pool.conns[*fdIdx]->fd); break;
             case KNEVTKICK:
-                // knServer_kickAtIndex(server, fdIdx);
-                knConnection_destroy(server->pool.conns[*fdIdx]);
-                knPool_unregisterAtIndex(&server->pool, *fdIdx);
-                (*fdIdx)--;
+                knServer_kickAtIndex(server, *fdIdx);
+                (*fdIdx)--; break;
             default:
                 break;
         }
