@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define MAX_PLAYER 4
 
@@ -51,13 +52,18 @@ int onConnectionCallback([[maybe_unused]] knServer *server, knConnection *conn)
     return KNEVTOK;
 }
 
-int onReadCallback([[maybe_unused]] knConnection *conn, const char *str, size_t n)
+int onReadCallback([[maybe_unused]] knConnection *conn, const void *str, size_t n)
 {
     Player *player = knConnection_getData(conn);
 
     if (!player)
         return -1;
-    printf("[%d] I received: %*s\n", player->x, (int)n, str);
+    int tmps = n + strlen("Bro really said: ") + 3;
+    char tmp[tmps] = {};
+    tmp[tmps - 1] = '\0';
+    printf("[%d] I received: %.*s\n", player->x, (int)n, (char *)str);
+    sprintf(tmp, "Bro really said: %.*s\r\n", (int)tmps, (char *)str);
+    knConnection_send(conn, tmp, tmps);
     return 0;
 }
 
