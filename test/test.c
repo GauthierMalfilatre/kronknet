@@ -4,6 +4,7 @@
 ** File description:
 ** network library in C, for the zappy project
 */
+#include "kronknet/errdef.h"
 #include "kronknet/server/server.h"
 #include "kronknet/connection/connection.h"
 #include "kronknet/server/callback/callback.h"
@@ -35,11 +36,11 @@ int onConnectionCallback([[maybe_unused]] knServer *server, knConnection *conn)
     Player *player;
 
     if (!w || w->nplayers >= MAX_PLAYER) {
-        return -1;
+        return KNEVTKICK;
     }
     player = malloc(sizeof(Player));
     if (!player) {
-        return -1;
+        return KNEVTMEM;
     }
     player->conn = conn;
     player->x = rand() % 255;
@@ -47,7 +48,7 @@ int onConnectionCallback([[maybe_unused]] knServer *server, knConnection *conn)
     w->players[w->nplayers] = player;
     w->nplayers++;
     printf("[%d] Hello guys from callback!!\n", player->x);
-    return 0;
+    return KNEVTOK;
 }
 
 int onReadCallback([[maybe_unused]] knConnection *conn, const char *str, size_t n)

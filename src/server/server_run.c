@@ -83,5 +83,5 @@ int knServer_run(knServer *server)
             break;
         }
     }
-    return server->status;
+    return KNEVTOK;
 }
