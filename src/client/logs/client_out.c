@@ -2,18 +2,18 @@
 ** EPITECH PROJECT, 2026
 ** KRONKNET
 ** File description:
-** Log for the server
+** Log for the client
 */
-#include "kronknet/server/server.h"
+#include "kronknet/client/client.h"
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
 
-[[gnu::hot]] void knServer_out(const knServer *server, const char *format, ...)
+[[gnu::hot]] void knClient_out(const knClient *client, const char *format, ...)
 {
     va_list ap;
 
-    if (!server || !server->logs) {
+    if (!client || !client->shouldLog) {
         return;
     }
     char out[strlen(format) + strlen("[KRONKNET - OK] ") + 2];
