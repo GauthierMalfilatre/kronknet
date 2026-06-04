@@ -7,8 +7,8 @@
 #ifndef KRONKNET_CLIENT_H
     #define KRONKNET_CLIENT_H
     #include "kronknet/callback/callback.h"
-#include "kronknet/utils/rbuff/rbuff.h"
-#include <netinet/in.h>
+    #include "kronknet/utils/rbuff/rbuff.h"
+    #include <netinet/in.h>
 
 ///////////////////////////////////////////////////////////////////////////////
 /**

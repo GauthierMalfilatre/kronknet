@@ -7,10 +7,17 @@
 #include "kronknet/callback/callback.h"
 #include "kronknet/client/client.h"
 #include "kronknet/errdef.h"
-#include "kronknet/server/server.h"
 #include <arpa/inet.h>
 #include <stddef.h>
 #include <sys/socket.h>
+
+static void __knClient_initStatic(knClient *client)
+{
+    client->onConnection = NULL;
+    client->onRead = NULL;
+    client->onWrite = NULL;
+    client->onDisconnection = NULL;
+}
 
 int knClient_init(knClient *client, const char *ip, uint16_t port)
 {
@@ -27,5 +34,6 @@ int knClient_init(knClient *client, const char *ip, uint16_t port)
     if (connect(client->fd, (struct sockaddr *)&client->addr, sizeof(client->addr)) != KNEVTOK) {
         return KNEVTNET;
     }
+    __knClient_initStatic(client);
     return KNEVTOK;
 }
