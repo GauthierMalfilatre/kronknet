@@ -7,7 +7,8 @@
 #ifndef KRONKNET_CONNECTION_H
     #define KRONKNET_CONNECTION_H
     #include "kronknet/utils/rbuff/rbuff.h"
-#include <netinet/in.h>
+    #include <stddef.h>
+    #include <netinet/in.h>
     #include <sys/socket.h>
 
 typedef struct kronknet_server_s knServer;
@@ -33,6 +34,7 @@ typedef struct kronknet_connection_s {
     knRBuff *out_buff;               //!< The out buffer    
 
     short int *evtptr;  //!< The ptr to the events in the pool
+    size_t        id;      //!< The id of the connection ( !same as fd )
 
 } knConnection;
 ///////////////////////////////////////////////////////////////////////////////
@@ -47,5 +49,7 @@ int knConnection_send(knConnection *conn, const void *data, size_t size);
 
 void *knConnection_getData(const knConnection *conn);
 void knConnection_setData(knConnection *conn, void *data);
+
+size_t knConnection_getId(const knConnection *conn);
 
 #endif /* KRONKNET_CONNECTION_H */
