@@ -14,7 +14,7 @@ mknObject *new(const mknClass *class, ...)
     mknObject *new = NULL;
 
     if (!class) {
-        raise("Bad parameter");
+        KN_PANIC("Bad parameter");
     }
     va_start(list, class);
     new = va_new(class, &list);
@@ -27,11 +27,11 @@ mknObject *va_new(const mknClass *class, va_list *ap)
     mknObject *new = NULL;
 
     if (!class || !ap) {
-        raise("Bad parameter");
+        KN_PANIC("Bad parameter");
     }
     new = malloc(class->__size__);
     if (!new) {
-        raise("Memory allocation error");
+        KN_PANIC("Memory allocation error");
     }
     memcpy(new, class, class->__size__);
     if (class->__ctor__) {
@@ -43,7 +43,7 @@ mknObject *va_new(const mknClass *class, va_list *ap)
 void delete(mknObject *ptr)
 {
     if (!ptr) {
-        raise("Bad parameter");
+        KN_PANIC("Bad parameter");
     }
     if (((mknClass *)ptr)->__dtor__) {
         ((mknClass *)ptr)->__dtor__(ptr);

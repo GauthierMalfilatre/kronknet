@@ -38,13 +38,13 @@ typedef struct mkronknet_class_s {
 
 } mknClass;
 
-#define str(o)                  (((Class *)o)->__str__ != NULL ? ((Class *)o)->__str__(o) : strdup(((Class *)o)->__name__))
-#define addition(a, b)          ((Class *)a)->__add__(a, b)
-#define subtraction(a, b)       ((Class *)a)->__sub__(a, b)
-#define multiplication(a, b)    ((Class *)a)->__mul__(a, b)
-#define division(a, b)          ((Class *)a)->__div__(a, b)
-#define eq(a, b)                ((Class *)a)->__eq__(a, b)
-#define gt(a, b)                ((Class *)a)->__gt__(a, b)
-#define lt(a, b)                ((Class *)a)->__lt__(a, b)
+#define str(o)                  (((mknClass *)o)->__str__ != NULL ? ((mknClass *)o)->__str__(o) : strdup(((mknClass *)o)->__name__))
+#define addition(a, b)          ((mknClass *)a)->__add__(a, b)
+#define subtraction(a, b)       ((mknClass *)a)->__sub__(a, b)
+#define multiplication(a, b)    ((mknClass *)a)->__mul__(a, b)
+#define division(a, b)          ((mknClass *)a)->__div__(a, b)
+#define eq(a, b)                ((mknClass *)a)->__eq__(a, b)
+#define gt(a, b)                ((mknClass *)a)->__gt__(a, b)
+#define lt(a, b)                ((mknClass *)a)->__lt__(a, b)
 
 #endif /* MKRONKNET_OBJECT_H */

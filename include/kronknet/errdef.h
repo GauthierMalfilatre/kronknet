@@ -16,10 +16,10 @@
     #define KNEVTNET   -8
     #define KNEVTARGS -16
 
-    #define raise(msg)                                              \
-    do {                                                            \
-        fprintf(stderr, "%s: %u: %s\n", __FILE__, __LINE__, msg);   \
-        abort();                                                    \
+    #define KN_PANIC(msg) \
+    do { \
+        fprintf(stderr, "%s:%d: FATAL ERROR: %s\n", __FILE__, __LINE__, msg); \
+        abort(); \
     } while (0)
 
 #endif /* KRONKNET_ERRDEF_H */
