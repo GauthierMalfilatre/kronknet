@@ -12,6 +12,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 #include <sys/poll.h>
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -20,13 +21,13 @@ static int __knServer_onPollout([[maybe_unused]] knServer *server, [[maybe_unuse
 {
     uint8_t tmp[KNBUFFSIZ] = {};
     knConnection *conn = server->pool.conns[fdIdx];
-
-    // FIXME: Peek -> consume
     size_t usage = knRBuff_usage(conn->out_buff);
+
     knServer_out(server, "Connection [%d]: Attempting to send some data", conn->fd);
-    knRBuff_pop(conn->out_buff, tmp, usage);
+    knRBuff_peek(conn->out_buff, tmp, usage);
     ssize_t sends = send(conn->fd, tmp, usage, MSG_NOSIGNAL);
     if (sends > 0) {
+        knRBuff_pop(conn->out_buff, NULL, sends);
         knServer_out(server, "Connection [%d]: sent %zu bytes, remaining: %zu bytes.", conn->fd, (size_t)sends, knRBuff_usage(conn->out_buff));
         if (knRBuff_isEmpty(conn->out_buff)) {
             knConnection_setEvents(server->pool.conns[fdIdx], POLLIN);
