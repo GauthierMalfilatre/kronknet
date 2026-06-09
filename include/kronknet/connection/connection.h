@@ -7,6 +7,7 @@
 #ifndef KRONKNET_CONNECTION_H
     #define KRONKNET_CONNECTION_H
     #include "kronknet/utils/rbuff/rbuff.h"
+#include <stdbool.h>
     #include <stddef.h>
     #include <netinet/in.h>
     #include <sys/socket.h>
@@ -23,18 +24,20 @@ typedef struct kronknet_server_s knServer;
 ///////////////////////////////////////////////////////////////////////////////
 typedef struct kronknet_connection_s {
 
-    int                fd;           //!< The file descriptor of the client
-    uint16_t           port;         //!< The port using by the connection
-    socklen_t          addr_length;  //!< The length of the addr
-    struct sockaddr_in addr;         //!< The actual addr
+    int                fd;                  //!< The file descriptor of the client
+    uint16_t           port;                //!< The port using by the connection
+    socklen_t          addr_length;         //!< The length of the addr
+    struct sockaddr_in addr;                //!< The actual addr
 
     char               ip[INET_ADDRSTRLEN]; //!< The well-formated ip adrr
 
-    void    *data;                   //!< The user datas (eg User struct ...)
-    knRBuff *out_buff;               //!< The out buffer    
+    void              *data;                //!< The user datas (eg User struct ...)
+    knRBuff           *out_buff;            //!< The out buffer    
 
-    short int *evtptr;  //!< The ptr to the events in the pool
-    size_t        id;      //!< The id of the connection ( !same as fd )
+    short int         *evtptr;              //!< The ptr to the events in the pool
+    size_t             id;                  //!< The id of the connection ( !same as fd )
+
+    bool               disconnected;        //!< Is disconnected ?
 
 } knConnection;
 ///////////////////////////////////////////////////////////////////////////////

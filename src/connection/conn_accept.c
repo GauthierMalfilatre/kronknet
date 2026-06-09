@@ -7,6 +7,7 @@
 #include "kronknet/connection/connection.h"
 #include "kronknet/errdef.h"
 #include "kronknet/server/server.h"
+#include <stdbool.h>
 #include <stddef.h>
 #include <netinet/in.h>
 #include <stdio.h>
@@ -36,6 +37,7 @@ knConnection *knConnection_accept(const knServer *server)
     }
     conn->port = ntohs(conn->addr.sin_port);
     conn->id = id++;
+    conn->disconnected = false;
     inet_ntop(AF_INET, &conn->addr.sin_addr, conn->ip, INET_ADDRSTRLEN);
     return conn;
 }

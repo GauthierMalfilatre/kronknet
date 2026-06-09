@@ -54,6 +54,8 @@ int knServer_run(knServer *server);
 void knServer_kick(knServer *server, knConnection *conn);
 void knServer_kickAtIndex(knServer *server, size_t idx);
 
+void knServer_disconnect(knServer *server, knConnection *conn);
+
 bool knServer_isRunning(const knServer *server);
 
 void *knServer_getData(const knServer *server);
