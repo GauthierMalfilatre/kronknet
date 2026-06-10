@@ -25,6 +25,7 @@ knConnection *knConnection_accept(const knServer *server)
     if (!conn) {
         return NULL;
     }
+    conn->addr_length = sizeof(conn->addr);
     conn->fd = accept(server->fd, (struct sockaddr *)&conn->addr, &conn->addr_length);
     if (conn->fd == -1) {
         knConnection_destroy(conn);
