@@ -36,6 +36,8 @@ static int __knServer_nonBlocking(int fd)
 static int __knServer_bind(knServer *server)
 {
     int opt = 1;
+    struct sockaddr_in addr;
+    socklen_t len = sizeof(addr);
 
     if (setsockopt(server->fd, SOL_SOCKET, SO_REUSEADDR,
         &opt, sizeof(opt)) == -1) {
@@ -45,7 +47,13 @@ static int __knServer_bind(knServer *server)
         sizeof(server->addr)) == -1) {
         return KNEVTNET;
     }
-    inet_ntop(AF_INET, &server->addr.sin_addr, server->ip, INET_ADDRSTRLEN);
+    if (getsockname(server->fd, (struct sockaddr *)&addr, &len) == -1) {
+        return KNEVTNET;
+    }
+    if (inet_ntop(AF_INET, &addr.sin_addr, server->ip,
+        INET_ADDRSTRLEN) == NULL) {
+        return KNEVTNET;
+    }
     return KNEVTOK;
 }
 
