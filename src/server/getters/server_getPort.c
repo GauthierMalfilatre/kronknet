@@ -12,6 +12,6 @@
 uint16_t knServer_getPort(const knServer *server)
 {
     if (!server)
-        return NULL;
+        return 0;
     return ntohs(server->addr.sin_port);
 }
