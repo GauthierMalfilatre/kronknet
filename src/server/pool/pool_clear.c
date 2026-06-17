@@ -4,7 +4,9 @@
 ** File description:
 ** Clear pool
 */
+#include "kronknet/connection/connection.h"
 #include "kronknet/server/pool/pool.h"
+#include <stddef.h>
 #include <stdlib.h>
 #include <sys/poll.h>
 
@@ -17,6 +19,9 @@ void knPool_clear(knPool *pool)
         free(pool->pollfds);
     }
     if (pool->conns) {
+        for (size_t i = 0; i < pool->count; ++i){
+            knConnection_destroy(pool->conns[i]);
+        }
         free(pool->conns);
     }
     pool->count = 0;
