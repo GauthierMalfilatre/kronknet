@@ -139,7 +139,7 @@ apt install cmake
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-You can find an exemple of usage [here](https://github.com/GauthierMalfilatre/kronknet/blob/main/test/test.c)
+You can find an exemple of usage [here](https://github.com/GauthierMalfilatre/kronknet/blob/main/test/server/test.c)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
