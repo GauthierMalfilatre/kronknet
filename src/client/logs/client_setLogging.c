@@ -8,10 +8,10 @@
 #include <stdarg.h>
 #include <stdbool.h>
 
-void knClient_setLogging(knClient *server, bool shouldLog)
+void knClient_setLogging(knClient *client, bool shouldLog)
 {
-    if (!server) {
+    if (!client) {
         return;
     }
-    server->shouldLog = shouldLog;
+    client->shouldLog = shouldLog;
 }

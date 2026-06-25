@@ -1,0 +1,38 @@
+// KRONKNET - CHAT EXEMPLE (client)
+#include "kronknet/callback/callback.h"
+#include "kronknet/client/client.h"
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#define CHOK   0
+#define CHERR 84
+
+int main(
+    int argc,
+    char *const *argv
+)
+{
+    if (argc < 3) {
+        printf("Bad argument\nUsage: ./ex_chater [ip] [port]\n");
+        return CHERR;
+    }
+    // NOTE: Create client
+    knClient *client = knClient_create();
+    if (!client) {
+        printf("Fail to create client...\n");
+        return CHERR;
+    }
+    // NOTE: Make client able to log
+    knClient_setLogging(client, true);
+    // NOTE: Connect client to server
+    if (knClient_connect(client, argv[1], strtol(argv[2], NULL, 10)) != 0) {
+        printf("Unable to connect...\n");
+        return CHERR;
+    }
+    // NOTE: Run the client
+    knClient_run(client);
+    // NOTE: Destroy client
+    knClient_destroy(client);
+    return CHOK;
+}
