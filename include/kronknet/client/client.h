@@ -55,4 +55,7 @@ int knClient_connect(knClient *client, const char *ip, uint16_t port);
 
 bool knClient_isRunning(knClient *client);
 
+void knClient_setData(knClient *client, void *data);
+void *knClient_getData(const knClient *client);
+
 #endif /* KRONKNET_CLIENT_H */
