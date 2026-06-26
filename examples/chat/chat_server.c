@@ -135,6 +135,7 @@ int main(
     // NOTE: Run the server
     while (knServer_isRunning(server)) {
         knServer_runOnce(server, -1);
+        // NOTE: Sending messages to all users
         for (size_t i = 0; i < context.usrcount; ++i) {
             if (!context.users[i].hasmsg) continue;
             for (size_t j = 0; j < context.usrcount; ++j) {
