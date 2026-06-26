@@ -10,6 +10,7 @@
 #include "kronknet/macros/types.h"
 #include <stdio.h>
 
+KN_API
 void knClient_setLogLevel(
     knClient *client,
     knLogLevel level
@@ -21,6 +22,7 @@ void knClient_setLogLevel(
     client->logger.log_level = level;
 }
 
+KN_API
 void knClient_setLogOutput(
     knClient *client,
     FILE *output

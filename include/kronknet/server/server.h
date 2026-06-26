@@ -15,7 +15,7 @@ typedef struct kronknet_server_s knServer;
 
 // TODO: Documentation
 KN_API knServer* knServer_create(knPort port);
-KN_API int       knServer_init(knServer *server, uint16_t port);
+KN_API int       knServer_init(knServer *server, knPort port);
 KN_API void      knServer_clear(knServer *server);
 KN_API void      knServer_destroy(knServer *server);
 
@@ -32,7 +32,7 @@ KN_API FILE*      knServer_getLogOutput(const knServer *server);
 KN_API knLogLevel knServer_getLogLevel(const knServer *server);
 
 KN_API void *knServer_getUserPtr(knServer *server);
-KN_API void  knServer_setUserPtr(knServer *server, void *data);
+KN_API void  knServer_setUserPtr(knServer *server, void *user_ptr);
 
 KN_API const char* knServer_getIp(const knServer *server);
 KN_API knPort      knServer_getPort(const knServer *server);
@@ -40,6 +40,6 @@ KN_API knPort      knServer_getPort(const knServer *server);
 KN_API int knServer_setOnConnect(knServer *server, knServer_OnConnect_t callback);
 KN_API int knServer_setOnRead(knServer *server, knServer_OnRead_t callback);
 KN_API int knServer_setOnWrite(knServer *server, knServer_OnWrite_t callback);
-KN_API int knServer_setOnDisconnect(knServer *server, knServer_OnConnect_t callback);
+KN_API int knServer_setOnDisconnect(knServer *server, knServer_OnDisconnect_t callback);
 
 #endif /* KRONKNET_SERVER_H */

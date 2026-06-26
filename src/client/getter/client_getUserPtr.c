@@ -8,6 +8,7 @@
 #include "kronknet/client/client.h"
 #include "../client.h"
 
+KN_API
 void *knClient_getUserPtr(
     const knClient *client
 )

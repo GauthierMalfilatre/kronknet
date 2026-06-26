@@ -8,6 +8,7 @@
 #include "kronknet/server/server.h"
 #include "../server.h"
 
+KN_API
 void *knServer_getUserPtr(
     knServer *server
 )

@@ -7,6 +7,7 @@
 #include "../connection.h"
 #include "kronknet/connection/connection.h"
 
+KN_API
 void knConnection_setUserPtr(
     knConnection *conn,
     void *user_ptr

@@ -9,6 +9,7 @@
 #include "kronknet/macros/types.h"
 #include <stdint.h>
 
+KN_API
 const char *knConnection_getIp(
     const knConnection *conn
 )
@@ -19,6 +20,7 @@ const char *knConnection_getIp(
     return conn->ip;
 }
 
+KN_API
 knPort knConnection_getPort(
     const knConnection *conn
 )

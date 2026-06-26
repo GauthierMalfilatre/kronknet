@@ -9,6 +9,7 @@
 #include "kronknet/server/server.h"
 #include "../server.h"
 
+KN_API
 int knServer_setOnConnect(
     knServer *server,
     knServer_OnConnect_t callback

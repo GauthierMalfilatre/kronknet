@@ -9,6 +9,7 @@
 #include "../client.h"
 #include "kronknet/macros/types.h"
 
+KN_API
 knBool knClient_isRunning(
     knClient *client
 )

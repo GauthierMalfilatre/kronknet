@@ -8,6 +8,7 @@
 #include "kronknet/client/client.h"
 #include <stdlib.h>
 
+KN_API
 void knClient_destroy(
     knClient *client
 )

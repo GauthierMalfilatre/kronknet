@@ -16,6 +16,7 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 
+KN_API
 int knConnection_send(
     knConnection *conn,
     const void *data,

@@ -10,6 +10,7 @@
 #include <stdbool.h>
 #include "../client.h"
 
+KN_API
 void knClient_close(
     knClient *client
 )

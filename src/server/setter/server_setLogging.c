@@ -5,11 +5,13 @@
 ** Set the logging, on or off.
 */
 #include "kronknet/callback/callback.h"
+#include "kronknet/macros/optimization.h"
 #include "kronknet/macros/types.h"
 #include <stdarg.h>
 #include <stdbool.h>
 #include "../server.h"
 
+KN_API
 void knServer_setLogLevel(
     knServer *server,
     knLogLevel level
@@ -21,6 +23,7 @@ void knServer_setLogLevel(
     server->logger.log_level = level;
 }
 
+KN_API
 void knServer_setLogOutput(
     knServer *server,
     FILE *output

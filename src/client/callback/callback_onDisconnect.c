@@ -9,6 +9,7 @@
 #include "kronknet/client/client.h"
 #include "../client.h"
 
+KN_API
 int knClient_setOnDisconnect(
     knClient *client,
     knClient_OnDisconnect_t callback

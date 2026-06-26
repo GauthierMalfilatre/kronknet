@@ -7,6 +7,7 @@
 #include "kronknet/callback/callback.h"
 #include "kronknet/client/client.h"
 #include "kronknet/macros/errdef.h"
+#include "kronknet/macros/optimization.h"
 #include "kronknet/utils/rbuff/rbuff.h"
 #include <stdbool.h>
 #include <stddef.h>
@@ -39,6 +40,8 @@ static int __knClient_onPollout(
     return KNEVTOK;
 }
 
+KN_API
+KN_HOT
 int knClient_runOnce(
     knClient *client,
     ssize_t timeout
@@ -75,6 +78,7 @@ int knClient_runOnce(
     return KNEVTOK;
 }
 
+KN_API
 int knClient_run(
     knClient *client
 )

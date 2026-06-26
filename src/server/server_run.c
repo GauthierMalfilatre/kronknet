@@ -95,6 +95,7 @@ static int __knServer_processPoll(
 }
 
 KN_HOT
+KN_API
 int knServer_runOnce(
     knServer *server,
     ssize_t timeoutMs
@@ -121,6 +122,7 @@ int knServer_runOnce(
     return KNEVTOK;
 }
 
+KN_API
 int knServer_run(
     knServer *server
 )

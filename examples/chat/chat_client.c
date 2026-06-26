@@ -2,6 +2,7 @@
 #include "kronknet/callback/callback.h"
 #include "kronknet/client/client.h"
 #include "kronknet/macros/errdef.h"
+#include "kronknet/macros/types.h"
 #include <fcntl.h>
 #include <stdbool.h>
 #include <stddef.h>
@@ -52,10 +53,10 @@ int main(
         return CHERR;
     }
     // NOTE: Make client able to log
-    knClient_setLogging(client, true);
+    knClient_setLogLevel(client, knLogTrace);
     // NOTE: Set client callbacks
-    knClient_onConnectionCallback(client, &__connectCb);
-    knClient_onReadCallback(client, &__readCb);
+    knClient_setOnConnect(client, &__connectCb);
+    knClient_setOnRead(client, &__readCb);
     // NOTE: Connect client to server
     if (knClient_connect(client, argv[1], strtol(argv[2], NULL, 10)) != 0) {
         printf("Unable to connect...\n");

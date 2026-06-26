@@ -17,6 +17,7 @@
 #include "kronknet/client/client.h"
 #include "client.h"
 
+KN_API
 int knClient_sendServer(
     knClient *client,
     void *data,

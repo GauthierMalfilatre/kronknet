@@ -9,6 +9,7 @@
 #include "kronknet/client/client.h"
 #include "../client.h"
 
+KN_API
 int knClient_setOnRead(
     knClient *client,
     knClient_OnRead_t callback

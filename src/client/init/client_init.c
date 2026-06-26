@@ -34,6 +34,7 @@ static void __knClient_initStatic(
     };
 }
 
+KN_API
 int knClient_init(
     knClient *client
 )

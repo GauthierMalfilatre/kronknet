@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include "../server.h"
 
+KN_API
 knServer *knServer_create(
     knPort port
 )

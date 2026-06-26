@@ -36,6 +36,8 @@ target_link_libraries(kronknet-static PUBLIC kronknet-obj)
 add_library(kronknet-shared SHARED $<TARGET_OBJECTS:kronknet-obj>)
 target_link_libraries(kronknet-shared PUBLIC kronknet-obj)
 
+target_compile_definitions(kronknet-shared PRIVATE KRONKNET_BUILD_DLL)
+
 add_library(kronknet ALIAS kronknet-static)
 
 set_target_properties(kronknet-static PROPERTIES
@@ -45,3 +47,4 @@ set_target_properties(kronknet-static PROPERTIES
 set_target_properties(kronknet-shared PROPERTIES
     OUTPUT_NAME kronknet
 )
+

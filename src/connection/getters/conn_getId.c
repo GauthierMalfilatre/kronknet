@@ -8,6 +8,7 @@
 #include <stddef.h>
 #include "../connection.h"
 
+KN_API
 size_t knConnection_getId(
     const knConnection *conn
 )

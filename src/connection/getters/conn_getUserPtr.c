@@ -8,6 +8,7 @@
 #include "kronknet/connection/connection.h"
 #include <stdlib.h>
 
+KN_API
 void *knConnection_getUserPtr(
     const knConnection *conn
 )

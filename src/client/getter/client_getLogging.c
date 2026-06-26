@@ -9,6 +9,7 @@
 #include "../client.h"
 #include "kronknet/macros/types.h"
 
+KN_API
 knLogLevel knClient_getLogLevel(
     const knClient *client
 )
@@ -19,6 +20,7 @@ knLogLevel knClient_getLogLevel(
     return client->logger.log_level;
 }
 
+KN_API
 FILE* knClient_getLogOutput(
     const knClient *client
 )

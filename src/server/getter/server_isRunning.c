@@ -9,6 +9,7 @@
 #include <stdbool.h>
 #include "../server.h"
 
+KN_API
 knBool knServer_isRunning(
     const knServer *server
 )

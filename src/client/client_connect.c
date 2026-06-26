@@ -11,6 +11,7 @@
 #include <stdint.h>
 #include "client.h"
 
+KN_API
 int knClient_connect(
     knClient *client,
     const char *ip,

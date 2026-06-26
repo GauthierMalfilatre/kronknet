@@ -6,8 +6,10 @@
 */
 #include "kronknet/callback/callback.h"
 #include "../server.h"
+#include "kronknet/macros/optimization.h"
 #include <stdbool.h>
 
+KN_API
 void knServer_stop(
     knServer *server
 )

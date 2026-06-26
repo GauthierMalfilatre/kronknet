@@ -9,6 +9,7 @@
 #include "../pool/pool.h"
 #include "../server.h"
 
+KN_API
 void knServer_clear(
     knServer *server
 )

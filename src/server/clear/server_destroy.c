@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+KN_API
 void knServer_destroy(
     knServer *server
 )

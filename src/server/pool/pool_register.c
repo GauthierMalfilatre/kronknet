@@ -54,10 +54,10 @@ int knPool_registerFd(
     }
     pool->pollfds[pool->count].fd = fd;
     pool->pollfds[pool->count].events = events;
-    pool->conns[pool->count - 1] = conn;
+    pool->conns[pool->count] = conn;
     if (conn) {
         if (conn) {
-            conn->evtptr = &pool->pollfds[pool->count - 1].events;
+            conn->evtptr = &pool->pollfds[pool->count].events;
         }
     }
     pool->count = new_count;

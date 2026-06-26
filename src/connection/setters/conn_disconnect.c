@@ -10,6 +10,7 @@
 #include <stddef.h>
 #include "../connection.h"
 
+KN_API
 void knConnection_disconnect(
     knConnection *conn
 )

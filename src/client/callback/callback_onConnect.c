@@ -9,6 +9,7 @@
 #include "kronknet/callback/callback.h"
 #include "../client.h"
 
+KN_API
 int knClient_setOnConnect(
     knClient *client,
     knClient_OnConnect_t callback

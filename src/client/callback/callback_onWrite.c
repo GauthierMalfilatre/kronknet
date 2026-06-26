@@ -9,6 +9,7 @@
 #include "kronknet/client/client.h"
 #include "../client.h"
 
+KN_API
 int knClient_setOnWrite(
     knClient *client,
     knClient_OnWrite_t callback

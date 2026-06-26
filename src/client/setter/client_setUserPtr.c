@@ -8,6 +8,7 @@
 #include "kronknet/client/client.h"
 #include "../client.h"
 
+KN_API
 void knClient_setUserPtr(
     knClient *client,
     void *user_ptr

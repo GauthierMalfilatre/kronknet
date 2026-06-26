@@ -8,6 +8,7 @@
 #include "kronknet/callback/callback.h"
 #include "../pool/pool.h"
 #include "../server.h"
+#include "kronknet/macros/optimization.h"
 #include "kronknet/macros/types.h"
 #include <arpa/inet.h>
 #include <netinet/in.h>
@@ -64,7 +65,9 @@ static int __knServer_bind(
     return KNEVTOK;
 }
 
-static void __knServer_basics(knServer *server)
+static void __knServer_basics(
+    knServer *server
+)
 {
     server->running = true;
     server->onConnection = NULL;
@@ -77,6 +80,7 @@ static void __knServer_basics(knServer *server)
     };
 }
 
+KN_API
 int knServer_init(
     knServer *server,
     knPort port

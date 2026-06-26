@@ -10,6 +10,7 @@
 #include "../server.h"
 #include <stdio.h>
 
+KN_API
 knLogLevel knServer_getLogLevel(
     const knServer *server
 )

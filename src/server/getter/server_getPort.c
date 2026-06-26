@@ -11,6 +11,7 @@
 #include <netinet/in.h>
 #include "../server.h"
 
+KN_API
 knPort knServer_getPort(
     const knServer *server
 )

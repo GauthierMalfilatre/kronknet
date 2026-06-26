@@ -2,6 +2,7 @@
 #include "kronknet/callback/callback.h"
 #include "kronknet/connection/connection.h"
 #include "kronknet/macros/errdef.h"
+#include "kronknet/macros/types.h"
 #include "kronknet/server/server.h"
 #include <stdbool.h>
 #include <stddef.h>
@@ -125,13 +126,13 @@ int main(
         knServer_getPort(server)
     );
     // NOTE: Make the server able to log
-    knServer_setLogging(server, true);
+    knServer_setLogLevel(server, knLogTrace);
     // NOTE: Set the context as server data
     knServer_setUserPtr(server, &context);
     // NOTE: Set servers callback
-    knServer_onConnectionCallback(server, &__connectCb);
-    knServer_onDisconnectionCallback(server, &__disconnectCb);
-    knServer_onReadCallback(server, &__readCb);
+    knServer_setOnConnect(server, &__connectCb);
+    knServer_setOnDisconnect(server, &__disconnectCb);
+    knServer_setOnRead(server, &__readCb);
     // NOTE: Run the server
     while (knServer_isRunning(server)) {
         knServer_runOnce(server, -1);

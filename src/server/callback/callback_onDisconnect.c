@@ -9,6 +9,7 @@
 #include "kronknet/server/server.h"
 #include "../server.h"
 
+KN_API
 int knServer_setOnDisconnect(
     knServer *server,
     knServer_OnDisconnect_t callback

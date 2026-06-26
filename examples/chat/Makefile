@@ -29,9 +29,9 @@ $(NAME): $(SOBJ) $(COBJ)
 	$(CC) $(CFLAGS) -o $(CNAME) $(COBJ) $(LDFLAGS)
 
 clean:
-	rm -f $(OBJ)
+	rm -f $(COBJ) $(SOBJ)
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(SNAME) $(CNAME)
 
 re: fclean all

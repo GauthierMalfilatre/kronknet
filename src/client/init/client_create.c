@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include "../client.h"
 
+KN_API
 knClient *knClient_create()
 {
     knClient *client = NULL;
