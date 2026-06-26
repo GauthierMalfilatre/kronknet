@@ -50,8 +50,8 @@ void knConnection_destroy(knConnection *conn);
 int knConnection_setEvents(knConnection *conn, short int events);
 int knConnection_send(knConnection *conn, const void *data, size_t size);
 
-void *knConnection_getData(const knConnection *conn);
-void knConnection_setData(knConnection *conn, void *data);
+void *knConnection_getUserPtr(const knConnection *conn);
+void knConnection_setUserPtr(knConnection *conn, void *data);
 
 size_t knConnection_getId(const knConnection *conn);
 

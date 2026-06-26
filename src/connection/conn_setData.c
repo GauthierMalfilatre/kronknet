@@ -6,7 +6,7 @@
 */
 #include "kronknet/connection/connection.h"
 
-void knConnection_setData(knConnection *conn, void *data)
+void knConnection_setUserPtr(knConnection *conn, void *data)
 {
     if (!conn) {
         return;

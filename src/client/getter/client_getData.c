@@ -7,7 +7,7 @@
 #include "kronknet/callback/callback.h"
 #include "kronknet/client/client.h"
 
-void *knClient_getData(const knClient *client)
+void *knClient_getUserPtr(const knClient *client)
 {
     if (!client) {
         return NULL;

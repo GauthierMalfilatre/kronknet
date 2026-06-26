@@ -39,8 +39,8 @@ typedef struct kronknet_server_s {
 
 } knServer;
 ///////////////////////////////////////////////////////////////////////////////
-
-// TODO: Documentation
+#define knDebug(fmt, ...) knLogger_log(knLogDebug, __FILE__, __LINE__, fmt, __VA_ARGS__);
+    // TODO: Documentation
 knServer *knServer_create(uint16_t port);
 int knServer_init(knServer *server, uint16_t port);
 
@@ -60,8 +60,8 @@ void knServer_disconnect(knServer *server, knConnection *conn);
 
 bool knServer_isRunning(const knServer *server);
 
-void *knServer_getData(const knServer *server);
-void knServer_setData(knServer *server, void *data);
+void *knServer_getUserPtr(const knServer *server);
+void knServer_setUserPtr(knServer *server, void *data);
 
 void knServer_out(const knServer *server, const char *format, ...);
 void knServer_err(const knServer *server, const char *format, ...);

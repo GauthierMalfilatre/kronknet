@@ -127,7 +127,7 @@ static int mknServer_setLogging(mknServerClass *thus, ...)
     return KNEVTOK;
 }
 
-static int mknServer_setData(mknServerClass *thus, ...)
+static int mknServer_setUserPtr(mknServerClass *thus, ...)
 {
     va_list l;
 
@@ -135,7 +135,7 @@ static int mknServer_setData(mknServerClass *thus, ...)
         KN_PANIC("Bad parameter");
     }
     va_start(l, thus);
-    knServer_setData(thus->_server, va_arg(l, void *));
+    knServer_setUserPtr(thus->_server, va_arg(l, void *));
     va_end(l);
     return KNEVTOK;
 }
@@ -164,7 +164,7 @@ static const mknServerClass _description = {
         .__onDisconnect__ = (mkn_setCb_t)&mknServer_onDisconnectCb,
         .__port__         = (mkn_getInt_t)&mknServer_getPort,
         .__log__          = (mkn_set_t)&mknServer_setLogging,
-        .__data__         = (mkn_set_t)&mknServer_setData,
+        .__data__         = (mkn_set_t)&mknServer_setUserPtr,
     },
     ._server = NULL,
 };
