@@ -79,12 +79,12 @@ jobs:
         run: |
           cmake --build build -- -j$(nproc)
       - name: Checking executables
+      - name: Checking executables
         run: |
-          for file in ${{ vars.EXECUTABLES }}
-          do
-            if [ ! -x build/$file ]; then
-              echo ::error title=Executables not found or doesn\'t exist::$file doesn\'t exist !
-              exit 1
+          for file in ${{ vars.EXECUTABLES }}; do
+            if [ ! -x "build/$file" ] && [ ! -f "build/$file" ]; then
+              echo "::error title=Artifact not found::$file does not exist or is invalid!"
+              exit 84
             fi
           done
       - name: Clean build artifacts
