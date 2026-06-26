@@ -11,7 +11,7 @@ on:
 
 jobs:
   detect_build_system:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     outputs:
       has_make: ${{ steps.check_make.outputs.exists }}
       has_cmake: ${{ steps.check_cmake.outputs.exists }}
@@ -28,7 +28,7 @@ jobs:
     name: Check Make compilation
     needs: [detect_build_system]
     if: ${{ needs.detect_build_system.outputs.has_make == 'true' }}
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     container:
       image: epitechcontent/epitest-docker
     steps:
@@ -51,7 +51,7 @@ jobs:
   run_make_tests:
     name: Running Make tests
     needs: check_make_compilation
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     container:
       image: epitechcontent/epitest-docker
     steps:
@@ -67,7 +67,7 @@ jobs:
   check_cmake_compilation:
     name: Check CMake compilation
     needs: [detect_build_system]
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     if: ${{ needs.detect_build_system.outputs.has_cmake == 'true' }}
     container:
       image: epitechcontent/epitest-docker
@@ -94,7 +94,7 @@ jobs:
   run_cmake_tests:
     name: Running CMake tests
     needs: check_cmake_compilation
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     container:
       image: epitechcontent/epitest-docker
     steps:
