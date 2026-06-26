@@ -1,0 +1,109 @@
+name: CI
+run-name: ${{ github.actor }} is pushing new code
+
+on:
+    push:
+        branches-ignore:
+            - 'ga-ignore-*'
+    pull_request:
+        branches-ignore:
+            - 'ga-ignore-*'
+
+jobs:
+  detect_build_system:
+    runs-on: self-hosted
+    outputs:
+      has_make: ${{ steps.check_make.outputs.exists }}
+      has_cmake: ${{ steps.check_cmake.outputs.exists }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: check_cmake
+        run: |
+          if [ -f "CMakeLists.txt" ]; then echo "exists=true" >> "$GITHUB_OUTPUT"; else echo "exists=false" >> "$GITHUB_OUTPUT"; fi
+      - id: check_make
+        run: |
+          if [ -f "Makefile" ]; then echo "exists=true" >> "$GITHUB_OUTPUT"; else echo "exists=false" >> "$GITHUB_OUTPUT"; fi
+
+  check_make_compilation:
+    name: Check Make compilation
+    needs: [detect_build_system]
+    if: ${{ needs.detect_build_system.outputs.has_make == 'true' }}
+    runs-on: self-hosted
+    container:
+      image: epitechcontent/epitest-docker
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check compilation
+        timeout-minutes: 5
+        run: make
+      - name: Cleaning
+        run: make clean
+      - name: Checking executables
+        run: |
+          for file in ${{ vars.EXECUTABLES }}
+          do
+            if [ ! -x $file ]; then
+              echo ::error title=Executables not found or doesn\'t exist::$file doesn\'t exist !
+              exit 84
+            fi
+          done
+
+  run_make_tests:
+    name: Running Make tests
+    needs: check_make_compilation
+    runs-on: self-hosted
+    container:
+      image: epitechcontent/epitest-docker
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check compilation
+        timeout-minutes: 2
+        run: make tests_run
+        env:
+          LD_LIBRARY_PATH: ./libs/myteams
+      - name: Cleaning
+        run: make clean
+
+  check_cmake_compilation:
+    name: Check CMake compilation
+    needs: [detect_build_system]
+    runs-on: self-hosted
+    if: ${{ needs.detect_build_system.outputs.has_cmake == 'true' }}
+    container:
+      image: epitechcontent/epitest-docker
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure project with CMake
+        run: |
+          cmake -S . -B build
+      - name: Build project with CMake
+        run: |
+          cmake --build build -- -j$(nproc)
+      - name: Checking executables
+        run: |
+          for file in ${{ vars.EXECUTABLES }}
+          do
+            if [ ! -x build/$file ]; then
+              echo ::error title=Executables not found or doesn\'t exist::$file doesn\'t exist !
+              exit 1
+            fi
+          done
+      - name: Clean build artifacts
+        run: rm -rf build
+
+  run_cmake_tests:
+    name: Running CMake tests
+    needs: check_cmake_compilation
+    runs-on: self-hosted
+    container:
+      image: epitechcontent/epitest-docker
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check compilation
+        timeout-minutes: 2
+        run: |
+          cmake -S . -B build
+          cmake --build build --parallel
+          ctest --test-dir build --output-on-failure
+      - name: Cleaning
+        run: rm -rf build
