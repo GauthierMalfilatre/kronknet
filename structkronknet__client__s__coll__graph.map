@@ -1,0 +1,8 @@
+<map id="kronknet_client_s" name="kronknet_client_s">
+<area shape="rect" id="Node000001" title="Client structure, containing necessary data to the client: fd, data." alt="" coords="121,110,258,135"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="272,112,281,116,285,123,277,132,259,136,258,131,274,127,279,122,277,120,270,117"/>
+<area shape="rect" id="Node000002" href="$structkronknet__ring__buffer__s.html" title=" " alt="" coords="5,5,176,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="114,39,180,108,176,112,110,43"/>
+<area shape="rect" id="Node000003" href="$structkronknet__logger__data__s.html" title=" " alt="" coords="200,5,379,31"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="270,43,203,112,199,108,266,39"/>
+</map>

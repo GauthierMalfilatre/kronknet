@@ -1,0 +1,7 @@
+<map id="kronknet_pool_s" name="kronknet_pool_s">
+<area shape="rect" id="Node000001" title=" " alt="" coords="27,181,156,207"/>
+<area shape="rect" id="Node000002" href="$structkronknet__connection__s.html" title=" " alt="" coords="5,93,177,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,133,94,181,89,181,89,133"/>
+<area shape="rect" id="Node000003" href="$structkronknet__ring__buffer__s.html" title=" " alt="" coords="6,5,177,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="94,45,94,93,89,93,89,45"/>
+</map>
