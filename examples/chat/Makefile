@@ -10,7 +10,7 @@ SSRC = 	chat_server.c \
 CSRC = 	chat_client.c \
 
 LDFLAGS += -L../../Debug -lkronknet -Wl,-rpath=../../Debug
-CFLAGS += -I../../include/
+CFLAGS += -I../../include/ -g
 
 COBJ = $(CSRC:.c=.o)
 SOBJ = $(SSRC:.c=.o)
