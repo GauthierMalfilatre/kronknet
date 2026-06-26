@@ -127,11 +127,10 @@ apt install cmake
    ./tools.sh -r
    ```
 3. Installing the library
-  ```sh
-  cd Release/
-  sudo make install
-  ```
-
+    ```sh
+    cd Release/
+    sudo make install
+    ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
