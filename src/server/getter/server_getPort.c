@@ -5,11 +5,15 @@
 ** Get the ip of the server (but useless asf)
 */
 #include "kronknet/callback/callback.h"
+#include "kronknet/macros/types.h"
 #include "kronknet/server/server.h"
 #include <stdint.h>
 #include <netinet/in.h>
+#include "../server.h"
 
-uint16_t knServer_getPort(const knServer *server)
+knPort knServer_getPort(
+    const knServer *server
+)
 {
     if (!server)
         return 0;

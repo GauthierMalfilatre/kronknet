@@ -18,4 +18,19 @@
     // NOTE: port type definition
     typedef unsigned short int knPort;
 
+    // NOTE: Loging levels
+    typedef enum kronknet_log_level_e {
+
+        knLogTrace = 0,
+        knLogDebug,
+        knLogInfo,
+        knLogWarn,
+        knLogError,
+        knLogFatal,
+        // NOTE: Just log nothing...
+        knLogNone,
+
+    } knLogLevel;
+
+
 #endif /* KRONKNET_MACROS_TYPES_H */

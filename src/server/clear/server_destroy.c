@@ -8,7 +8,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void knServer_destroy(knServer *server)
+void knServer_destroy(
+    knServer *server
+)
 {
     if (!server) {
         return;

@@ -5,7 +5,6 @@
 ** Accept a new connection
 */
 #include "kronknet/connection/connection.h"
-#include "kronknet/errdef.h"
 #include "kronknet/server/server.h"
 #include <fcntl.h>
 #include <stdbool.h>
@@ -17,8 +16,11 @@
 #include <unistd.h>
 #include "arpa/inet.h"
 #include "kronknet/utils/rbuff/rbuff.h"
+#include "../server/server.h"
 
-knConnection *knConnection_accept(const knServer *server)
+knConnection *knConnection_accept(
+    const knServer *server
+)
 {
     knConnection *conn = calloc(1, sizeof(knConnection));
     static size_t id = 0;

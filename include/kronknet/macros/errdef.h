@@ -14,6 +14,9 @@
     #define KNEVTNET   -8
     #define KNEVTARGS -16
 
+    #include <stdio.h>
+    #include <stdlib.h>
+
     // FIXME: Change location
     #define KN_PANIC(msg) \
     do { \

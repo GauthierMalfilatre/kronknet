@@ -22,7 +22,6 @@
 typedef struct kronknet_server_s {
 
     knBool             running;              //!< Is the server running
-    knBool             logs;                 //!< Is the server should produce logs
     int                fd;                   //!< The fd of the server socket
     struct sockaddr_in addr;                 //!< The address of the server
     knPool             pool;                 //!< The pool of pollfds to look on

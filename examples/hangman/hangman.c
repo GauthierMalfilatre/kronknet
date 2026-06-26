@@ -1,4 +1,4 @@
-#include "kronknet/errdef.h"
+#include "kronknet/macros/errdef.h"
 #include "kronknet/server/server.h"
 #include "kronknet/connection/connection.h"
 #include "kronknet/callback/callback.h"

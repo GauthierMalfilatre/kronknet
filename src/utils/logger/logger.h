@@ -8,26 +8,16 @@
     #define KRONKNET_LOGGER_H
     #include <stdbool.h>
     #include <stdio.h>
-
-typedef enum kronknet_log_type_e {
-
-    knLogTrace = 0,
-    knLogDebug,
-    knLogInfo,
-    knLogWarn,
-    knLogError,
-    knLogFatal
-
-} knLogType;
+    #include "kronknet/macros/types.h"
 
 typedef struct kronknet_logger_data_s {
 
     FILE *out;
-    bool should_log;
+    bool log_level;
 
 } knLoggerData;
 
-void knLogger_log(knLoggerData *data, knLogType _type, const char *_file, int _line, const char * restrict _fmt, ...);
+void knLogger_log(knLoggerData *data, knLogLevel _type, const char *_file, int _line, const char * restrict _fmt, ...);
 
 #ifndef KNDEBUG
     #define knTrace(data, fmt, ...) knLogger_log(&data, knLogTrace, NULL, 0, fmt, ##__VA_ARGS__)

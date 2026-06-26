@@ -4,7 +4,7 @@
 ** File description:
 ** network library in C, for the zappy project
 */
-#include "kronknet/errdef.h"
+#include "kronknet/macros/errdef.h"
 #include "kronknet/mkn/new.h"
 #include "kronknet/mkn/object.h"
 #include "kronknet/mkn/server.h"

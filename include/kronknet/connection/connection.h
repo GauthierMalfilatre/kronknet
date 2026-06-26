@@ -6,7 +6,8 @@
 */
 #ifndef KRONKNET_CONNECTION_H
     #define KRONKNET_CONNECTION_H
-    #include "kronknet/utils/rbuff/rbuff.h"
+    #include "kronknet/macros/optimization.h"
+#include "kronknet/utils/rbuff/rbuff.h"
     #include <stdbool.h>
     #include <stddef.h>
     #include <netinet/in.h>
@@ -57,5 +58,7 @@ size_t knConnection_getId(const knConnection *conn);
 
 const char *knConnection_getIp(const knConnection *conn);
 uint16_t knConnection_getPort(const knConnection *conn);
+
+KN_API void knConnection_disconnect(knConnection *conn);
 
 #endif /* KRONKNET_CONNECTION_H */

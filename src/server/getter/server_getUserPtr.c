@@ -8,7 +8,9 @@
 #include "kronknet/server/server.h"
 #include "../server.h"
 
-void *knServer_getUserPtr(const knServer *server)
+void *knServer_getUserPtr(
+    knServer *server
+)
 {
     if (!server)
         return NULL;

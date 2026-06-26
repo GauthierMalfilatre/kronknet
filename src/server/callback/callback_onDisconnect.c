@@ -4,15 +4,20 @@
 ** File description:
 ** Set onDisconection callback
 */
-#include "kronknet/errdef.h"
+#include "kronknet/connection/connection.h"
+#include "kronknet/macros/errdef.h"
 #include "kronknet/callback/callback.h"
-#include "kronknet/client/client.h"
+#include "kronknet/server/server.h"
+#include "../server.h"
 
-int knClient_onDisconnectionCallback(knClient *client, knClientCb callback)
+int knServer_setOnDisconnect(
+    knServer *server,
+    knConnectionCb callback
+)
 {
-    if (!client) {
+    if (!server) {
         return KNEVTARGS;
     }
-    client->onDisconnection = callback;
+    server->onDisconnection = callback;
     return KNEVTOK;
 }

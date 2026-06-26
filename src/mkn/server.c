@@ -6,7 +6,7 @@
 */
 #include "kronknet/server/server.h"
 #include "kronknet/callback/callback.h"
-#include "kronknet/errdef.h"
+#include "kronknet/macros/errdef.h"
 #include "kronknet/mkn/object.h"
 #include "kronknet/mkn/server.h"
 #include <stdbool.h>
@@ -14,6 +14,7 @@
 #include <netinet/in.h>
 #include <stdarg.h>
 #include <stdio.h>
+#include "../server/server.h"
 
 typedef struct {
 
@@ -123,7 +124,7 @@ static int mknServer_setLogging(mknServerClass *thus, ...)
     va_start(l, thus);
     bool c = va_arg(l, int);
     va_end(l);
-    knServer_setLogging(thus->_server, c);
+    knServer_setLogLevel(thus->_server, c);
     return KNEVTOK;
 }
 

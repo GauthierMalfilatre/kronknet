@@ -5,7 +5,7 @@
 ** Run the client
 */
 #include "kronknet/client/client.h"
-#include "kronknet/errdef.h"
+#include "kronknet/macros/errdef.h"
 #include <arpa/inet.h>
 #include <string.h>
 #include <stdint.h>

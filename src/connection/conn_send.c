@@ -5,7 +5,7 @@
 ** Send message to a connection
 */
 #include "kronknet/connection/connection.h"
-#include "kronknet/errdef.h"
+#include "kronknet/macros/errdef.h"
 #include "kronknet/utils/rbuff/rbuff.h"
 #include <asm-generic/errno-base.h>
 #include <asm-generic/errno.h>

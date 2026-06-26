@@ -21,7 +21,7 @@ static const char *__type_names[] = {
 
 void knLogger_log(
     knLoggerData *data,
-    knLogType _type,
+    knLogLevel _type,
     const char *_file,
     int _line,
     const char * restrict _fmt,
@@ -30,7 +30,7 @@ void knLogger_log(
 {
     va_list args;
 
-    if (!data || !data->should_log || !data->out)
+    if (!data || !data->out || _type < data->log_level)
         return;
     if (_file) {
         fprintf(data->out, "%s %s:%d: ", __type_names[_type], _file, _line);

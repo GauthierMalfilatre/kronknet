@@ -4,10 +4,14 @@
 ** File description:
 ** Is the server running ??
 */
+#include "kronknet/macros/types.h"
 #include "kronknet/server/server.h"
 #include <stdbool.h>
+#include "../server.h"
 
-bool knServer_isRunning(const knServer *server)
+knBool knServer_isRunning(
+    const knServer *server
+)
 {
     if (!server)
         return false;

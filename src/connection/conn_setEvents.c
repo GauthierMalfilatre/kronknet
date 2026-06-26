@@ -5,7 +5,7 @@
 ** Send message to a connection
 */
 #include "kronknet/connection/connection.h"
-#include "kronknet/errdef.h"
+#include "kronknet/macros/errdef.h"
 
 int knConnection_setEvents(knConnection *conn, short int events)
 {

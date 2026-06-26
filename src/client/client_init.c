@@ -6,7 +6,7 @@
 */
 #include "kronknet/callback/callback.h"
 #include "kronknet/client/client.h"
-#include "kronknet/errdef.h"
+#include "kronknet/macros/errdef.h"
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <stdbool.h>

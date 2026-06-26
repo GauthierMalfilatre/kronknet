@@ -6,8 +6,11 @@
 */
 #include "kronknet/callback/callback.h"
 #include "kronknet/server/server.h"
+#include "../server.h"
 
-const char *knServer_getIp(const knServer *server)
+const char *knServer_getIp(
+    const knServer *server
+)
 {
     if (!server)
         return NULL;

@@ -14,10 +14,12 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <sys/poll.h>
 #include <sys/socket.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include "../pool/pool.h"
 
 static int __knServer_nonBlocking(
     int fd
@@ -65,11 +67,14 @@ static int __knServer_bind(
 static void __knServer_basics(knServer *server)
 {
     server->running = true;
-    server->logs = false;
     server->onConnection = NULL;
     server->onWrite = NULL;
     server->onRead = NULL;
     server->onDisconnection = NULL;
+    server->logger = (knLoggerData){
+        .out = NULL,
+        .log_level = knLogNone,
+    };
 }
 
 int knServer_init(
@@ -102,6 +107,5 @@ int knServer_init(
         close(server->fd);
         return KNEVTERR;
     }
-    knPool_registerFd(&server->pool, server->fd, POLLIN);
-    return knPool_registerConnection(&server->pool, NULL);
+    return knPool_registerFd(&server->pool, server->fd, NULL, POLLIN);
 }

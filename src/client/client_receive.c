@@ -6,7 +6,7 @@
 */
 #include "kronknet/callback/callback.h"
 #include "kronknet/client/client.h"
-#include "kronknet/errdef.h"
+#include "kronknet/macros/errdef.h"
 #include "kronknet/server/server.h"
 #include <asm-generic/errno-base.h>
 #include <asm-generic/errno.h>
