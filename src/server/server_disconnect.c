@@ -5,14 +5,15 @@
 ** Disconnect a client
 */
 #include "kronknet/callback/callback.h"
-#include "kronknet/server/server.h"
+#include "kronknet/connection/connection.h"
 #include <stdbool.h>
 #include <stddef.h>
-#include "kronknet/connection/connection.h"
 
-void knServer_disconnect(knServer *server, knConnection *conn)
+void knConnection_disconnect(
+    knConnection *conn
+)
 {
-    if (!server || !conn) {
+    if (!conn) {
         return;
     }
     conn->disconnected = true;

@@ -6,68 +6,29 @@
 */
 #ifndef KRONKNET_SERVER_H
     #define KRONKNET_SERVER_H
-    #include <stdint.h>
-    #include <sys/socket.h>
-    #include <netinet/in.h>
-    #include <stdbool.h>
     #include "kronknet/callback/callback.h"
-    #include "pool/pool.h"
+    #include "kronknet/macros/types.h"
+    #include "kronknet/macros/optimization.h"
 
-    #define KNBUFFSIZ  8192
+typedef struct kronknet_server_s knServer;
 
-///////////////////////////////////////////////////////////////////////////////
-/**
- * @struct  server_s
- *
- * @brief   Server structure, containing necessary datas: pollfds, addr, ...
- */
-///////////////////////////////////////////////////////////////////////////////
-typedef struct kronknet_server_s {
+// TODO: Documentation
+KN_API knServer *knServer_create(uint16_t port);
+KN_API int knServer_init(knServer *server, uint16_t port);
+KN_API void knServer_clear(knServer *server);
+KN_API void knServer_destroy(knServer *server);
+KN_API int knServer_runOnce(knServer *server, ssize_t timeoutMs);
+KN_API int knServer_run(knServer *server);
 
-    bool               running;              //!< Is the server running
-    bool               logs;                 //!< Is the server should produce logs
-    int                fd;                   //!< The fd of the server socket
-    int                status;               //!< The status of the server, set on error
-    struct sockaddr_in addr;                 //!< The address of the server
-    knPool             pool;                 //!< The pool of pollfds to look on
-    void              *data;                 //!< Data like a struct given by the user
-    knConnectionCb     onConnection;         //!< onConnection callback
-    knReadCb           onRead;               //!< onRead callback
-    knEventCb          onWrite;              //!< onWrite callback
-    knConnectionCb     onDisconnection;      //!< onDisconnection callback
-    char               ip[INET_ADDRSTRLEN];  //!< The ip as a string
+// FIXME: Move
+KN_API void knConnection_disconnect(knConnection *conn);
 
-} knServer;
-///////////////////////////////////////////////////////////////////////////////
-#define knDebug(fmt, ...) knLogger_log(knLogDebug, __FILE__, __LINE__, fmt, __VA_ARGS__);
-    // TODO: Documentation
-knServer *knServer_create(uint16_t port);
-int knServer_init(knServer *server, uint16_t port);
+KN_API bool knServer_isRunning(const knServer *server);
 
-void knServer_clear(knServer *server);
-void knServer_destroy(knServer *server);
+KN_API void *knServer_getUserPtr(const knServer *server);
+KN_API void  knServer_setUserPtr(knServer *server, void *data);
 
-int knServer_receiveData(knServer *server, knConnection *conn);
-int knServer_accept(knServer *server);
-
-int knServer_runOnce(knServer *server, ssize_t timeoutMs);
-int knServer_run(knServer *server);
-
-void knServer_kick(knServer *server, knConnection *conn);
-void knServer_kickAtIndex(knServer *server, size_t idx);
-
-void knServer_disconnect(knServer *server, knConnection *conn);
-
-bool knServer_isRunning(const knServer *server);
-
-void *knServer_getUserPtr(const knServer *server);
-void knServer_setUserPtr(knServer *server, void *data);
-
-void knServer_out(const knServer *server, const char *format, ...);
-void knServer_err(const knServer *server, const char *format, ...);
-void knServer_setLogging(knServer *server, bool shouldLog);
-
-const char *knServer_getIp(const knServer *server);
-uint16_t    knServer_getPort(const knServer *server);
+KN_API const char *knServer_getIp(const knServer *server);
+KN_API knPort      knServer_getPort(const knServer *server);
 
 #endif /* KRONKNET_SERVER_H */

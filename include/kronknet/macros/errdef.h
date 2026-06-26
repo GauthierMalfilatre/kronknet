@@ -6,8 +6,6 @@
 */
 #ifndef KRONKNET_ERRDEF_H
     #define KRONKNET_ERRDEF_H
-    #include <stdlib.h>
-    #include <stdio.h>
 
     #define KNEVTOK     0
     #define KNEVTERR   -1
@@ -16,6 +14,7 @@
     #define KNEVTNET   -8
     #define KNEVTARGS -16
 
+    // FIXME: Change location
     #define KN_PANIC(msg) \
     do { \
         fprintf(stderr, "%s:%d: FATAL ERROR: %s\n", __FILE__, __LINE__, msg); \

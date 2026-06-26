@@ -6,6 +6,8 @@
 */
 #ifndef KRONKNET_LOGGER_H
     #define KRONKNET_LOGGER_H
+    #include <stdbool.h>
+    #include <stdio.h>
 
 typedef enum kronknet_log_type_e {
 
@@ -18,22 +20,29 @@ typedef enum kronknet_log_type_e {
 
 } knLogType;
 
-void knLogger_log(knLogType _type, const char *_file, int _line, const char * restrict _fmt, ...);
+typedef struct kronknet_logger_data_s {
+
+    FILE *out;
+    bool should_log;
+
+} knLoggerData;
+
+void knLogger_log(knLoggerData *data, knLogType _type, const char *_file, int _line, const char * restrict _fmt, ...);
 
 #ifndef KNDEBUG
-    #define knTrace(fmt, ...) knLogger_log(knLogTrace, NULL, 0, fmt, ##__VA_ARGS__)
-    #define knDebug(fmt, ...) knLogger_log(knLogDebug, NULL, 0, fmt, ##__VA_ARGS__)
-    #define knInfo(fmt, ...) knLogger_log(knLogInfo,  NULL, 0, fmt, ##__VA_ARGS__)
-    #define knWarn(fmt, ...) knLogger_log(knLogWarn,  NULL, 0, fmt, ##__VA_ARGS__)
-    #define knError(fmt, ...) knLogger_log(knLogError, NULL, 0, fmt, ##__VA_ARGS__)
-    #define knFatal(fmt, ...) knLogger_log(knLogFatal, NULL, 0, fmt, ##__VA_ARGS__)
+    #define knTrace(data, fmt, ...) knLogger_log(&data, knLogTrace, NULL, 0, fmt, ##__VA_ARGS__)
+    #define knDebug(data, fmt, ...) knLogger_log(&data, knLogDebug, NULL, 0, fmt, ##__VA_ARGS__)
+    #define knInfo(data, fmt, ...) knLogger_log(&data, knLogInfo,  NULL, 0, fmt, ##__VA_ARGS__)
+    #define knWarn(data, fmt, ...) knLogger_log(&data, knLogWarn,  NULL, 0, fmt, ##__VA_ARGS__)
+    #define knError(data, fmt, ...) knLogger_log(&data, knLogError, NULL, 0, fmt, ##__VA_ARGS__)
+    #define knFatal(data, fmt, ...) knLogger_log(&data, knLogFatal, NULL, 0, fmt, ##__VA_ARGS__)
 #else
-    #define knTrace(fmt, ...) knLogger_log(knLogTrace, __FILE__, __LINE__, fmt, ##__VA_ARGS__)
-    #define knDebug(fmt, ...) knLogger_log(knLogDebug, __FILE__, __LINE__, fmt, ##__VA_ARGS__)
-    #define knInfo(fmt, ...) knLogger_log(knLogInfo,  __FILE__, __LINE__, fmt, ##__VA_ARGS__)
-    #define knWarn(fmt, ...) knLogger_log(knLogWarn,  __FILE__, __LINE__, fmt, ##__VA_ARGS__)
-    #define knError(fmt, ...) knLogger_log(knLogError, __FILE__, __LINE__, fmt, ##__VA_ARGS__)
-    #define knFatal(fmt, ...) knLogger_log(knLogFatal, __FILE__, __LINE__, fmt, ##__VA_ARGS__)
+    #define knTrace(data, fmt, ...) knLogger_log(&data, knLogTrace, __FILE__, __LINE__, fmt, ##__VA_ARGS__)
+    #define knDebug(data, fmt, ...) knLogger_log(&data, knLogDebug, __FILE__, __LINE__, fmt, ##__VA_ARGS__)
+    #define knInfo(data, fmt, ...) knLogger_log(&data, knLogInfo,  __FILE__, __LINE__, fmt, ##__VA_ARGS__)
+    #define knWarn(data, fmt, ...) knLogger_log(&data, knLogWarn,  __FILE__, __LINE__, fmt, ##__VA_ARGS__)
+    #define knError(data, fmt, ...) knLogger_log(&data, knLogError, __FILE__, __LINE__, fmt, ##__VA_ARGS__)
+    #define knFatal(data, fmt, ...) knLogger_log(&data, knLogFatal, __FILE__, __LINE__, fmt, ##__VA_ARGS__)
 #endif /* KNDEBUG */
 
 #endif /* KRONKNET_LOGGER_H */

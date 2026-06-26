@@ -4,11 +4,15 @@
 ** File description:
 ** Set the logging, on or off.
 */
-#include "kronknet/server/server.h"
+#include "kronknet/macros/types.h"
 #include <stdarg.h>
 #include <stdbool.h>
+#include "../server.h"
 
-void knServer_setLogging(knServer *server, bool shouldLog)
+void knServer_setLogging(
+    knServer *server,
+    knBool shouldLog
+)
 {
     if (!server) {
         return;

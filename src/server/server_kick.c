@@ -6,11 +6,14 @@
 */
 #include "kronknet/callback/callback.h"
 #include "kronknet/connection/connection.h"
-#include "kronknet/server/pool/pool.h"
-#include "kronknet/server/server.h"
+#include "pool/pool.h"
+#include "server.h"
 #include <stddef.h>
 
-void knServer_kick(knServer *server, knConnection *conn)
+void knServer_kick(
+    knServer *server,
+    knConnection *conn
+)
 {
     if (!server || !conn)
         return;
@@ -22,14 +25,17 @@ void knServer_kick(knServer *server, knConnection *conn)
     }
 }
 
-void knServer_kickAtIndex(knServer *server, size_t idx)
+void knServer_kickAtIndex(
+    knServer *server,
+    size_t idx
+)
 {
     if (!server || idx == 0)
         return;
     if (server->onDisconnection) {
         server->onDisconnection(server, server->pool.conns[idx]);
     }
-    knServer_out(server, "Connection [%d]: Kicking...", server->pool.conns[idx]->fd);
+    knInfo(server->logger, "Connection [%d]: Kicking...", server->pool.conns[idx]->fd);
     knConnection_destroy(server->pool.conns[idx]);
     knPool_unregisterAtIndex(&server->pool, idx);
 }

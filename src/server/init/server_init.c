@@ -4,10 +4,11 @@
 ** File description:
 ** Init the server
 */
-#include "kronknet/errdef.h"
+#include "kronknet/macros/errdef.h"
 #include "kronknet/callback/callback.h"
-#include "kronknet/server/pool/pool.h"
-#include "kronknet/server/server.h"
+#include "../pool/pool.h"
+#include "../server.h"
+#include "kronknet/macros/types.h"
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <stdbool.h>
@@ -18,7 +19,9 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-static int __knServer_nonBlocking(int fd)
+static int __knServer_nonBlocking(
+    int fd
+)
 {
     int flags;
 
@@ -33,7 +36,9 @@ static int __knServer_nonBlocking(int fd)
     return KNEVTOK;
 }
 
-static int __knServer_bind(knServer *server)
+static int __knServer_bind(
+    knServer *server
+)
 {
     int opt = 1;
     struct sockaddr_in addr;
@@ -67,7 +72,10 @@ static void __knServer_basics(knServer *server)
     server->onDisconnection = NULL;
 }
 
-int knServer_init(knServer *server, uint16_t port)
+int knServer_init(
+    knServer *server,
+    knPort port
+)
 {
     if (!server)
         return KNEVTERR;

@@ -6,10 +6,11 @@
 */
 #include "kronknet/callback/callback.h"
 #include "kronknet/server/server.h"
+#include "../server.h"
 
 void *knServer_getUserPtr(const knServer *server)
 {
     if (!server)
         return NULL;
-    return server->data;
+    return server->user_ptr;
 }

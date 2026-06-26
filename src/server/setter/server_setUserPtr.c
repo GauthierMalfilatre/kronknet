@@ -5,11 +5,14 @@
 ** Init the server
 */
 #include "kronknet/callback/callback.h"
-#include "kronknet/server/server.h"
+#include "../server.h"
 
-void knServer_setUserPtr(knServer *server, void *data)
+void knServer_setUserPtr(
+    knServer *server,
+    void *user_ptr
+)
 {
     if (!server)
         return;
-    server->data = data;
+    server->user_ptr = user_ptr;
 }

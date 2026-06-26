@@ -20,6 +20,7 @@ static const char *__type_names[] = {
 };
 
 void knLogger_log(
+    knLoggerData *data,
     knLogType _type,
     const char *_file,
     int _line,
@@ -27,18 +28,18 @@ void knLogger_log(
     ...
 )
 {
-    // FIXME: Change later to let user define his own FILE * to log into.
-    FILE *out = stdout;
     va_list args;
 
+    if (!data || !data->should_log || !data->out)
+        return;
     if (_file) {
-        fprintf(out, "%s %s:%d: ", __type_names[_type], _file, _line);
+        fprintf(data->out, "%s %s:%d: ", __type_names[_type], _file, _line);
     } else {
-        fprintf(out, "%s: ", __type_names[_type]);
+        fprintf(data->out, "%s: ", __type_names[_type]);
     }
     va_start(args, _fmt);
-    vfprintf(out, _fmt, args);
+    vfprintf(data->out, _fmt, args);
     va_end(args);
-    fprintf(out, "\n");
-    fflush(out);
+    fprintf(data->out, "\n");
+    fflush(data->out);
 }

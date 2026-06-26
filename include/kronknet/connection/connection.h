@@ -7,7 +7,7 @@
 #ifndef KRONKNET_CONNECTION_H
     #define KRONKNET_CONNECTION_H
     #include "kronknet/utils/rbuff/rbuff.h"
-#include <stdbool.h>
+    #include <stdbool.h>
     #include <stddef.h>
     #include <netinet/in.h>
     #include <sys/socket.h>
