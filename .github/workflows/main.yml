@@ -40,10 +40,9 @@ jobs:
         run: make clean
       - name: Checking executables
         run: |
-          for file in ${{ vars.EXECUTABLES }}
-          do
-            if [ ! -x $file ]; then
-              echo ::error title=Executables not found or doesn\'t exist::$file doesn\'t exist !
+          for file in ${{ vars.EXECUTABLES }}; do
+            if [ ! -x "build/$file" ] && [ ! -f "build/$file" ]; then
+              echo "::error title=Artifact not found::$file does not exist or is invalid!"
               exit 84
             fi
           done
