@@ -127,6 +127,7 @@ int main(
     );
     // NOTE: Make the server able to log
     knServer_setLogLevel(server, knLogTrace);
+    knServer_setLogOutput(server, stdout);
     // NOTE: Set the context as server data
     knServer_setUserPtr(server, &context);
     // NOTE: Set servers callback

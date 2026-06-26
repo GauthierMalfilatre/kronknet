@@ -53,6 +53,7 @@ int main(
         return CHERR;
     }
     // NOTE: Make client able to log
+    knClient_setLogOutput(client, stdout);
     knClient_setLogLevel(client, knLogTrace);
     // NOTE: Set client callbacks
     knClient_setOnConnect(client, &__connectCb);
