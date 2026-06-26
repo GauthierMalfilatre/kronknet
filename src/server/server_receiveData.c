@@ -12,6 +12,7 @@
 #include <errno.h>
 #include <stdint.h>
 #include <sys/socket.h>
+#include "../connection/connection.h"
 
 int knServer_receiveData(
     knServer *server,

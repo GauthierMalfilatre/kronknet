@@ -4,10 +4,13 @@
 ** File description:
 ** Send message to a connection
 */
-#include "kronknet/connection/connection.h"
+#include "../connection.h"
 #include "kronknet/macros/errdef.h"
 
-int knConnection_setEvents(knConnection *conn, short int events)
+int knConnection_setEvents(
+    knConnection *conn,
+    short int events
+)
 {
     if (!conn) {
         return KNEVTARGS;

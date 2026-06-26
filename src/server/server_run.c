@@ -19,6 +19,7 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include "server.h"
+#include "../connection/connection.h"
 
 static int __knServer_onPollout(
     knServer *server,

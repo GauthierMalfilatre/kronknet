@@ -12,6 +12,7 @@
 #include <unistd.h>
 #include "../utils/logger/logger.h"
 #include "server.h"
+#include "../connection/connection.h"
 
 int knServer_accept(
     knServer *server

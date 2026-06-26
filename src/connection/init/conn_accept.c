@@ -4,6 +4,7 @@
 ** File description:
 ** Accept a new connection
 */
+#include "../connection.h"
 #include "kronknet/connection/connection.h"
 #include "kronknet/server/server.h"
 #include <fcntl.h>
@@ -16,7 +17,7 @@
 #include <unistd.h>
 #include "arpa/inet.h"
 #include "kronknet/utils/rbuff/rbuff.h"
-#include "../server/server.h"
+#include "../../server/server.h"
 
 knConnection *knConnection_accept(
     const knServer *server

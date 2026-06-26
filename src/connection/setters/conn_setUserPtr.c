@@ -4,12 +4,16 @@
 ** File description:
 ** Set a connection data
 */
+#include "../connection.h"
 #include "kronknet/connection/connection.h"
 
-void knConnection_setUserPtr(knConnection *conn, void *data)
+void knConnection_setUserPtr(
+    knConnection *conn,
+    void *user_ptr
+)
 {
     if (!conn) {
         return;
     }
-    conn->data = data;
+    conn->user_ptr = user_ptr;
 }

@@ -4,12 +4,15 @@
 ** File description:
 ** Destroy a connection
 */
+#include "../connection.h"
 #include "kronknet/connection/connection.h"
 #include "kronknet/utils/rbuff/rbuff.h"
 #include <stdlib.h>
 #include <unistd.h>
 
-void knConnection_destroy(knConnection *conn)
+void knConnection_destroy(
+    knConnection *conn
+)
 {
     if (!conn) {
         return;

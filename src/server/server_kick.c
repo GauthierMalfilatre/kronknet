@@ -9,6 +9,7 @@
 #include "pool/pool.h"
 #include "server.h"
 #include <stddef.h>
+#include "../connection/connection.h"
 
 void knServer_kick(
     knServer *server,

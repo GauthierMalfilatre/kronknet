@@ -8,6 +8,7 @@
 #include "kronknet/connection/connection.h"
 #include <stdbool.h>
 #include <stddef.h>
+#include "../connection.h"
 
 void knConnection_disconnect(
     knConnection *conn

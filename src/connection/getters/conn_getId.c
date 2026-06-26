@@ -6,8 +6,11 @@
 */
 #include "kronknet/connection/connection.h"
 #include <stddef.h>
+#include "../connection.h"
 
-size_t knConnection_getId(const knConnection *conn)
+size_t knConnection_getId(
+    const knConnection *conn
+)
 {
     if (!conn) {
         return -1UL;
