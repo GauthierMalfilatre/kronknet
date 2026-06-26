@@ -24,17 +24,17 @@
 ///////////////////////////////////////////////////////////////////////////////
 typedef struct kronknet_server_s {
 
-    bool               running;          //!< Is the server running
-    bool               logs;             //!< Is the server should produce logs
-    int                fd;               //!< The fd of the server socket
-    int                status;           //!< The status of the server, set on error
-    struct sockaddr_in addr;             //!< The address of the server
-    knPool             pool;             //!< The pool of pollfds to look on
-    void              *data;             //!< Data like a struct given by the user
-    knConnectionCb     onConnection;     //!< onConnection callback
-    knReadCb           onRead;           //!< onRead callback
-    knEventCb          onWrite;          //!< onWrite callback
-    knConnectionCb     onDisconnection;  //!< onDisconnection callback
+    bool               running;              //!< Is the server running
+    bool               logs;                 //!< Is the server should produce logs
+    int                fd;                   //!< The fd of the server socket
+    int                status;               //!< The status of the server, set on error
+    struct sockaddr_in addr;                 //!< The address of the server
+    knPool             pool;                 //!< The pool of pollfds to look on
+    void              *data;                 //!< Data like a struct given by the user
+    knConnectionCb     onConnection;         //!< onConnection callback
+    knReadCb           onRead;               //!< onRead callback
+    knEventCb          onWrite;              //!< onWrite callback
+    knConnectionCb     onDisconnection;      //!< onDisconnection callback
     char               ip[INET_ADDRSTRLEN];  //!< The ip as a string
 
 } knServer;
