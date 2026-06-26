@@ -8,9 +8,7 @@
     #define KRONKNET_RBUFF_H
     #include "kronknet/macros/optimization.h"
     #include "kronknet/macros/types.h"
-    #include <stdbool.h>
     #include <stddef.h>
-    #include <stdint.h>
     #include <sys/types.h>
 
 ///////////////////////////////////////////////////////////////////////////////
