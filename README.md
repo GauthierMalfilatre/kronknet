@@ -125,12 +125,12 @@ apt install cmake
 2. Use provided `tools.sh` file
    ```sh
    ./tools.sh -r
-   ``` 
-3. Change git remote url to avoid accidental pushes to base project
-   ```sh
-   git remote set-url origin GauthierMalfilatre/kronknet
-   git remote -v # confirm the changes
    ```
+3. Installing the library
+  ```sh
+  cd Release/
+  sudo make install
+  ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

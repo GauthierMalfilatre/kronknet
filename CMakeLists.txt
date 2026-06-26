@@ -48,3 +48,15 @@ set_target_properties(kronknet-shared PROPERTIES
     OUTPUT_NAME kronknet
 )
 
+# NOTE: Installation
+
+include(GNUInstallDirs)
+
+install(TARGETS kronknet-static kronknet-shared
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} #
+)
+
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/kronknet
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
