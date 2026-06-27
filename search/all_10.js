@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['usage_0',['Usage',['../md_README.html#autotoc_md5',1,'']]],
-  ['user_5fptr_1',['user_ptr',['../structkronknet__client__s.html#a3129aaf129898ee981085741818dfd9d',1,'kronknet_client_s::user_ptr'],['../structkronknet__connection__s.html#aa6fc77c0be9c959fc8f99e1d49978a08',1,'kronknet_connection_s::user_ptr'],['../structkronknet__server__s.html#ae1e1caf08b8cee72ded1c3b63fe4a009',1,'kronknet_server_s::user_ptr']]]
+  ['sendhook_0',['sendHook',['../structkronknet__connection__s.html#a43ab891abec93e7b23acf59584eb1ffd',1,'kronknet_connection_s']]],
+  ['server_5fs_1',['server_s',['../structserver__s.html',1,'']]],
+  ['size_2',['size',['../structkronknet__pool__s.html#adb7c7caf76a6d893f8011f74951bf1c3',1,'kronknet_pool_s::size'],['../structkronknet__hashmap__s.html#a5b41d664865be83e43a1a66909e73ef9',1,'kronknet_hashmap_s::size'],['../structkronknet__ring__buffer__s.html#ab45d275efcae0c9903030656994d78ed',1,'kronknet_ring_buffer_s::size']]],
+  ['started_3',['Getting Started',['../md_README.html#autotoc_md2',1,'']]]
 ];

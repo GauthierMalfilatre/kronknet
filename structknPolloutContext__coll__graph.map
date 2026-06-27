@@ -1,0 +1,21 @@
+<map id="knPolloutContext" name="knPolloutContext">
+<area shape="rect" id="Node000001" title=" " alt="" coords="264,428,399,453"/>
+<area shape="rect" id="Node000002" href="$structkronknet__server__s.html" title=" " alt="" coords="260,309,403,334"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="334,348,334,428,329,428,329,348"/>
+<area shape="poly" id="edge6_Node000002_Node000002" title=" " alt="" coords="386,305,415,308,425,313,429,321,424,331,410,336,372,337,372,331,409,331,420,327,424,321,421,317,414,313,385,310"/>
+<area shape="rect" id="Node000003" href="$structkronknet__pool__s.html" title=" " alt="" coords="133,187,263,213"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="223,220,320,306,317,310,219,224"/>
+<area shape="rect" id="Node000004" href="$structkronknet__connection__s.html" title=" " alt="" coords="5,95,177,121"/>
+<area shape="poly" id="edge7_Node000002_Node000004" title=" " alt="" coords="79,134,64,173,63,194,70,213,87,235,108,253,157,281,210,300,260,311,259,316,209,305,155,286,105,257,83,238,65,216,57,195,58,172,74,132"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="118,128,186,185,183,189,114,132"/>
+<area shape="poly" id="edge5_Node000004_Node000004" title=" " alt="" coords="192,100,204,108,196,116,178,118,177,113,194,111,199,108,189,104"/>
+<area shape="rect" id="Node000005" href="$structkronknet__ring__buffer__s.html" title=" " alt="" coords="6,5,177,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="94,44,94,95,89,95,89,44"/>
+<area shape="rect" id="Node000006" href="$structkronknet__logger__data__s.html" title=" " alt="" coords="287,187,466,213"/>
+<area shape="poly" id="edge8_Node000002_Node000006" title=" " alt="" coords="370,226,338,309,333,308,365,225"/>
+<area shape="rect" id="Node000007" href="$structkronknet__hashmap__s.html" title=" " alt="" coords="491,187,652,213"/>
+<area shape="poly" id="edge9_Node000002_Node000007" title=" " alt="" coords="537,221,355,311,353,306,535,216"/>
+<area shape="rect" id="Node000008" href="$structkronknet__hashmap__node__s.html" title=" " alt="" coords="471,95,671,121"/>
+<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="574,135,574,187,569,187,569,135"/>
+<area shape="poly" id="edge11_Node000008_Node000008" title=" " alt="" coords="686,100,698,108,690,115,672,118,671,113,688,110,693,108,684,105"/>
+</map>

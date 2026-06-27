@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['conns_0',['conns',['../structkronknet__pool__s.html#a2841b5a2819045b353407de7a939b058',1,'kronknet_pool_s']]],
-  ['count_1',['count',['../structkronknet__pool__s.html#ae55be34f8afcb59eb37b74f77b53c396',1,'kronknet_pool_s']]]
+  ['connection_5ftimeout_0',['connection_timeout',['../structkronknet__server__s.html#abaf67efb0a29bae140924134f793f0fe',1,'kronknet_server_s']]],
+  ['connections_1',['connections',['../structkronknet__server__s.html#a6c7543e2199bf78f50a1ec5fabb2cc4f',1,'kronknet_server_s']]],
+  ['conns_2',['conns',['../structkronknet__pool__s.html#a2841b5a2819045b353407de7a939b058',1,'kronknet_pool_s']]],
+  ['count_3',['count',['../structkronknet__pool__s.html#ae55be34f8afcb59eb37b74f77b53c396',1,'kronknet_pool_s']]]
 ];

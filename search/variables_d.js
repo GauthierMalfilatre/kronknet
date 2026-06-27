@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['user_5fptr_0',['user_ptr',['../structkronknet__client__s.html#a3129aaf129898ee981085741818dfd9d',1,'kronknet_client_s::user_ptr'],['../structkronknet__connection__s.html#aa6fc77c0be9c959fc8f99e1d49978a08',1,'kronknet_connection_s::user_ptr'],['../structkronknet__server__s.html#ae1e1caf08b8cee72ded1c3b63fe4a009',1,'kronknet_server_s::user_ptr']]]
+  ['pollfds_0',['pollfds',['../structkronknet__pool__s.html#aa9652f34e33725246011a4c2efc15044',1,'kronknet_pool_s']]],
+  ['pool_1',['pool',['../structkronknet__server__s.html#ac712034820698e12eb6d9e3f068ddb73',1,'kronknet_server_s']]],
+  ['port_2',['port',['../structkronknet__connection__s.html#ad573658a54ef4566cbcb126ddef79e79',1,'kronknet_connection_s']]],
+  ['prev_3',['prev',['../structkronknet__hashmap__node__s.html#a885bc533f41771613b5573d03ab265fe',1,'kronknet_hashmap_node_s']]]
 ];

@@ -80,30 +80,40 @@ Collaboration diagram for kronknet_server_s:</div>
 <div class="dyncontent">
 <div class="center"><img src="structkronknet__server__s__coll__graph.png" border="0" usemap="#akronknet__server__s_coll__map" alt="Collaboration graph"/></div>
 <map name="akronknet__server__s_coll__map" id="akronknet__server__s_coll__map">
-<area shape="rect" title=" " alt="" coords="141,275,284,301"/>
-<area shape="poly" title=" " alt="" coords="299,279,311,288,302,296,285,299,284,293,300,291,305,288,296,284"/>
-<area shape="rect" href="structkronknet__pool__s.html" title=" " alt="" coords="148,183,277,209"/>
-<area shape="poly" title=" " alt="" coords="215,223,215,275,210,275,210,223"/>
-<area shape="rect" href="structkronknet__connection__s.html" title=" " alt="" coords="5,93,177,119"/>
-<area shape="poly" title=" " alt="" coords="84,132,77,171,78,191,84,209,102,231,124,249,173,273,171,278,121,254,98,235,80,212,72,192,71,170,79,131"/>
-<area shape="poly" title=" " alt="" coords="120,124,198,181,195,185,117,129"/>
+<area shape="rect" title=" " alt="" coords="260,309,403,334"/>
+<area shape="poly" title=" " alt="" coords="386,305,415,308,425,313,429,321,424,331,410,336,372,337,372,331,409,331,420,327,424,321,421,317,414,313,385,310"/>
+<area shape="rect" href="structkronknet__pool__s.html" title=" " alt="" coords="133,187,263,213"/>
+<area shape="poly" title=" " alt="" coords="223,220,320,306,317,310,219,224"/>
+<area shape="rect" href="structkronknet__connection__s.html" title=" " alt="" coords="5,95,177,121"/>
+<area shape="poly" title=" " alt="" coords="79,134,64,173,63,194,70,213,87,235,108,253,157,281,210,300,260,311,259,316,209,305,155,286,105,257,83,238,65,216,57,195,58,172,74,132"/>
+<area shape="poly" title=" " alt="" coords="118,128,186,185,183,189,114,132"/>
+<area shape="poly" title=" " alt="" coords="192,100,204,108,196,116,178,118,177,113,194,111,199,108,189,104"/>
 <area shape="rect" href="structkronknet__ring__buffer__s.html" title=" " alt="" coords="6,5,177,31"/>
-<area shape="poly" title=" " alt="" coords="94,45,94,93,89,93,89,45"/>
-<area shape="rect" href="structkronknet__logger__data__s.html" title=" " alt="" coords="302,183,481,209"/>
-<area shape="poly" title=" " alt="" coords="357,217,237,278,234,273,355,213"/>
+<area shape="poly" title=" " alt="" coords="94,44,94,95,89,95,89,44"/>
+<area shape="rect" href="structkronknet__logger__data__s.html" title=" " alt="" coords="287,187,466,213"/>
+<area shape="poly" title=" " alt="" coords="370,226,338,309,333,308,365,225"/>
+<area shape="rect" href="structkronknet__hashmap__s.html" title=" " alt="" coords="491,187,652,213"/>
+<area shape="poly" title=" " alt="" coords="537,221,355,311,353,306,535,216"/>
+<area shape="rect" href="structkronknet__hashmap__node__s.html" title=" " alt="" coords="471,95,671,121"/>
+<area shape="poly" title=" " alt="" coords="574,135,574,187,569,187,569,135"/>
+<area shape="poly" title=" " alt="" coords="686,100,698,108,690,115,672,118,671,113,688,110,693,108,684,105"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
+<tr class="memitem:a951ad3b13fdd4e66532802514ecc5d4e" id="r_a951ad3b13fdd4e66532802514ecc5d4e"><td class="memItemLeft" align="right" valign="top"><a id="a951ad3b13fdd4e66532802514ecc5d4e" name="a951ad3b13fdd4e66532802514ecc5d4e"></a>
+knFlags&#160;</td><td class="memItemRight" valign="bottom"><b>flags</b></td></tr>
+<tr class="memdesc:a951ad3b13fdd4e66532802514ecc5d4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The flags given at creation. <br /></td></tr>
+<tr class="separator:a951ad3b13fdd4e66532802514ecc5d4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab55ca4de5102ed5c10bac7621ea2793" id="r_aab55ca4de5102ed5c10bac7621ea2793"><td class="memItemLeft" align="right" valign="top"><a id="aab55ca4de5102ed5c10bac7621ea2793" name="aab55ca4de5102ed5c10bac7621ea2793"></a>
 knBool&#160;</td><td class="memItemRight" valign="bottom"><b>running</b></td></tr>
 <tr class="memdesc:aab55ca4de5102ed5c10bac7621ea2793"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the server running. <br /></td></tr>
 <tr class="separator:aab55ca4de5102ed5c10bac7621ea2793"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee8e41c3e8f886cd32b6041fdcfd498b" id="r_aee8e41c3e8f886cd32b6041fdcfd498b"><td class="memItemLeft" align="right" valign="top"><a id="aee8e41c3e8f886cd32b6041fdcfd498b" name="aee8e41c3e8f886cd32b6041fdcfd498b"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>fd</b></td></tr>
-<tr class="memdesc:aee8e41c3e8f886cd32b6041fdcfd498b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The fd of the server socket. <br /></td></tr>
-<tr class="separator:aee8e41c3e8f886cd32b6041fdcfd498b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2b450ec0ac02a6af51655040de78bb2" id="r_ab2b450ec0ac02a6af51655040de78bb2"><td class="memItemLeft" align="right" valign="top"><a id="ab2b450ec0ac02a6af51655040de78bb2" name="ab2b450ec0ac02a6af51655040de78bb2"></a>
+knSocket&#160;</td><td class="memItemRight" valign="bottom"><b>fd</b></td></tr>
+<tr class="memdesc:ab2b450ec0ac02a6af51655040de78bb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">The fd of the server socket. <br /></td></tr>
+<tr class="separator:ab2b450ec0ac02a6af51655040de78bb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a760aa9550c310bdc990fbb3b05eeb485" id="r_a760aa9550c310bdc990fbb3b05eeb485"><td class="memItemLeft" align="right" valign="top"><a id="a760aa9550c310bdc990fbb3b05eeb485" name="a760aa9550c310bdc990fbb3b05eeb485"></a>
 struct sockaddr_in&#160;</td><td class="memItemRight" valign="bottom"><b>addr</b></td></tr>
 <tr class="memdesc:a760aa9550c310bdc990fbb3b05eeb485"><td class="mdescLeft">&#160;</td><td class="mdescRight">The address of the server. <br /></td></tr>
@@ -140,6 +150,48 @@ char&#160;</td><td class="memItemRight" valign="bottom"><b>ip</b> [INET_ADDRSTRL
 <a class="el" href="structkronknet__logger__data__s.html">knLoggerData</a>&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b></td></tr>
 <tr class="memdesc:a0589914a1d7628ce4c34dde352a7bd93"><td class="mdescLeft">&#160;</td><td class="mdescRight">The logger data. <br /></td></tr>
 <tr class="separator:a0589914a1d7628ce4c34dde352a7bd93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abaf67efb0a29bae140924134f793f0fe" id="r_abaf67efb0a29bae140924134f793f0fe"><td class="memItemLeft" align="right" valign="top"><a id="abaf67efb0a29bae140924134f793f0fe" name="abaf67efb0a29bae140924134f793f0fe"></a>
+uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>connection_timeout</b></td></tr>
+<tr class="memdesc:abaf67efb0a29bae140924134f793f0fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">The max seconds the connections can rest withoud sending data (default: UDP = 30,000, TCP = 180,000) <br /></td></tr>
+<tr class="separator:abaf67efb0a29bae140924134f793f0fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a11003bc011298750f0c993e7d5bc5a" id="r_a3a11003bc011298750f0c993e7d5bc5a"><td class="memItemLeft" ><a id="a3a11003bc011298750f0c993e7d5bc5a" name="a3a11003bc011298750f0c993e7d5bc5a"></a>
+union {&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a924f229a6e4446bcf3d922c76d02a561" id="r_a924f229a6e4446bcf3d922c76d02a561"><td class="memItemLeft" >
+&#160;&#160;&#160;struct {&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:ace0c6fb3b104b2e86fb5724dd77a6a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a924f229a6e4446bcf3d922c76d02a561" id="r_a924f229a6e4446bcf3d922c76d02a561"><td class="memItemLeft" valign="top">&#160;&#160;&#160;}&#160;&#160;&#160;<b>on_tcp</b>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="memdesc:a924f229a6e4446bcf3d922c76d02a561"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specific on TCP (maybe later were gonna add smth) <br /></td></tr>
+<tr class="separator:a924f229a6e4446bcf3d922c76d02a561"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af28e471a5dee657baf2ce0949000aa6b" id="r_af28e471a5dee657baf2ce0949000aa6b"><td class="memItemLeft" >
+&#160;&#160;&#160;struct {&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:a6cc6b34ba52f1b3666d222e08784d62c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d856a74aa2d684970cd3543ccf5a0e9" id="r_a8d856a74aa2d684970cd3543ccf5a0e9"><td class="memItemLeft" >
+&#160;&#160;&#160;&#160;&#160;&#160;<a class="el" href="structkronknet__hashmap__s.html">knMap</a> *&#160;&#160;&#160;<b>connections</b>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="memdesc:a8d856a74aa2d684970cd3543ccf5a0e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">The hashmap that contains knConnections. <br /></td></tr>
+<tr class="separator:a8d856a74aa2d684970cd3543ccf5a0e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af28e471a5dee657baf2ce0949000aa6b" id="r_af28e471a5dee657baf2ce0949000aa6b"><td class="memItemLeft" valign="top">&#160;&#160;&#160;}&#160;&#160;&#160;<b>on_udp</b>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="memdesc:af28e471a5dee657baf2ce0949000aa6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specific on UDP. <br /></td></tr>
+<tr class="separator:af28e471a5dee657baf2ce0949000aa6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a11003bc011298750f0c993e7d5bc5a" id="r_a3a11003bc011298750f0c993e7d5bc5a"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom">&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="memdesc:a3a11003bc011298750f0c993e7d5bc5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The union to switch between protocols. <br /></td></tr>
+<tr class="separator:a3a11003bc011298750f0c993e7d5bc5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29486da7a43737d8e3f1027db9eff97d" id="r_a29486da7a43737d8e3f1027db9eff97d"><td class="memItemLeft" align="right" valign="top"><a id="a29486da7a43737d8e3f1027db9eff97d" name="a29486da7a43737d8e3f1027db9eff97d"></a>
+knServer_onPollinHook&#160;</td><td class="memItemRight" valign="bottom"><b>onPollinHook</b></td></tr>
+<tr class="memdesc:a29486da7a43737d8e3f1027db9eff97d"><td class="mdescLeft">&#160;</td><td class="mdescRight">on pollin hook <br /></td></tr>
+<tr class="separator:a29486da7a43737d8e3f1027db9eff97d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c8042e16fe17acc3c0a0ed9911eba8a" id="r_a0c8042e16fe17acc3c0a0ed9911eba8a"><td class="memItemLeft" align="right" valign="top"><a id="a0c8042e16fe17acc3c0a0ed9911eba8a" name="a0c8042e16fe17acc3c0a0ed9911eba8a"></a>
+knServer_onPolloutHook&#160;</td><td class="memItemRight" valign="bottom"><b>onPolloutHook</b></td></tr>
+<tr class="memdesc:a0c8042e16fe17acc3c0a0ed9911eba8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">on pollout hook <br /></td></tr>
+<tr class="separator:a0c8042e16fe17acc3c0a0ed9911eba8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a219f75ff013ac07583388a83531f13ff" id="r_a219f75ff013ac07583388a83531f13ff"><td class="memItemLeft" align="right" valign="top"><a id="a219f75ff013ac07583388a83531f13ff" name="a219f75ff013ac07583388a83531f13ff"></a>
+knServer_onCleanupHook&#160;</td><td class="memItemRight" valign="bottom"><b>onCleanupHook</b></td></tr>
+<tr class="memdesc:a219f75ff013ac07583388a83531f13ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">on cleanup hook <br /></td></tr>
+<tr class="separator:a219f75ff013ac07583388a83531f13ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f0325fa1229c9dafb3564af9fb1a30b" id="r_a7f0325fa1229c9dafb3564af9fb1a30b"><td class="memItemLeft" align="right" valign="top"><a id="a7f0325fa1229c9dafb3564af9fb1a30b" name="a7f0325fa1229c9dafb3564af9fb1a30b"></a>
+knServer_onDestructionHook&#160;</td><td class="memItemRight" valign="bottom"><b>onDestroyHook</b></td></tr>
+<tr class="memdesc:a7f0325fa1229c9dafb3564af9fb1a30b"><td class="mdescLeft">&#160;</td><td class="mdescRight">on destruction hook <br /></td></tr>
+<tr class="separator:a7f0325fa1229c9dafb3564af9fb1a30b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/server/<a class="el" href="src_2server_2server_8h_source.html">server.h</a></li>
