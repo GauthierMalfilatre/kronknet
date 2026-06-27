@@ -30,12 +30,12 @@ static int __knServer_onPollout(
     knConnection *conn = server->pool.conns[fdIdx];
     size_t usage = knRBuff_usage(conn->out_buff);
 
-    knInfo(server->logger, "Connection [%d]: Attempting to send some data", conn->fd);
+    knInfo(server->logger, "Connection [%d]: Attempting to send some data", conn->on_tcp.fd);
     knRBuff_peek(conn->out_buff, tmp, usage);
-    ssize_t sends = send(conn->fd, tmp, usage, MSG_NOSIGNAL);
+    ssize_t sends = send(conn->on_tcp.fd, tmp, usage, MSG_NOSIGNAL);
     if (sends > 0) {
         knRBuff_pop(conn->out_buff, NULL, sends);
-        knInfo(server->logger, "Connection [%d]: sent %zu bytes, remaining: %zu bytes.", conn->fd, (size_t)sends, knRBuff_usage(conn->out_buff));
+        knInfo(server->logger, "Connection [%d]: sent %zu bytes, remaining: %zu bytes.", conn->on_tcp.fd, (size_t)sends, knRBuff_usage(conn->out_buff));
         if (knRBuff_isEmpty(conn->out_buff)) {
             knConnection_setEvents(server->pool.conns[fdIdx], POLLIN);
             if (server->onWrite) {
@@ -43,7 +43,7 @@ static int __knServer_onPollout(
             }
         }
     } else {
-        knError(server->logger, "Connection [%d]: Failed to send data, remaining: %zu bytes.", conn->fd, knRBuff_remaining(conn->out_buff));
+        knError(server->logger, "Connection [%d]: Failed to send data, remaining: %zu bytes.", conn->on_tcp.fd, knRBuff_remaining(conn->out_buff));
     }
     return KNEVTOK;
 }
@@ -55,15 +55,22 @@ static int __knServer_onPollin(
 )
 {
     if (server->pool.pollfds[*fdIdx].fd == server->fd) {
-        knInfo(server->logger, "New connection request received");
-        if (knServer_accept(server) != KNEVTOK) {
-            knError(server->logger, "Connection request declined");
+        if (server->flags & knTCP) {
+            knInfo(server->logger, "New connection request received");
+            if (knServer_accept(server) != KNEVTOK) {
+                knError(server->logger, "Connection request declined");
+            }
+        } else if (server->flags & knUDP) {
+            knInfo(server->logger, "Receibing UDP data");
+            if (knServer_onPollinUDP(server) != KNEVTOK) {
+                knError(server->logger, "Error on receiving UDP data");
+            }
         }
-    } else {
+    } else {  // NOTE: Only in TCP mode
         knInfo(server->logger, "Data received");
         switch (knServer_receiveData(server, server->pool.conns[*fdIdx])) {
             case KNEVTERR:
-                knError(server->logger, "Connection [%d]: Error while receiving data", server->pool.conns[*fdIdx]->fd);
+                knError(server->logger, "Connection [%d]: Error while receiving data", server->pool.conns[*fdIdx]->on_tcp.fd);
                 break;
             case KNEVTKICK:
                 knServer_kickAtIndex(server, *fdIdx);
@@ -114,9 +121,11 @@ int knServer_runOnce(
     if (__knServer_processPoll(server) != KNEVTOK) {
         return KNEVTERR;
     }
-    for (int i = (int)server->pool.count - 1; i >= 1; --i) {
-        if (server->pool.conns[i] && server->pool.conns[i]->disconnected) {
-            knServer_kickAtIndex(server, i);
+    if (server->flags & knTCP) {
+        for (int i = (int)server->pool.count - 1; i >= 1; --i) {
+            if (server->pool.conns[i] && server->pool.conns[i]->disconnected) {
+                knServer_kickAtIndex(server, i);
+            }
         }
     }
     return KNEVTOK;

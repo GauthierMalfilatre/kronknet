@@ -7,7 +7,7 @@
 
 SRC = 	test.c
 
-LDFLAGS += -L../../Release -static -lkronknet
+LDFLAGS += -L../../Debug -lkronknet -Wl,-rpath=../../Debug
 CFLAGS += -I../../include/
 
 OBJ = $(SRC:.c=.o)

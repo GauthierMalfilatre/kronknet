@@ -24,18 +24,18 @@ int knServer_receiveData(
     if (!server || !conn) {
         return KNEVTARGS;
     }
-    ssize_t reads = recv(conn->fd, kronkbuffer, sizeof(kronkbuffer), 0);
+    ssize_t reads = recv(conn->on_tcp.fd, kronkbuffer, sizeof(kronkbuffer), 0);
     if (reads > 0) {
-        knInfo(server->logger, "Connection [%d] sends %zd bytes", conn->fd, reads);
+        knInfo(server->logger, "Connection [%d] sends %zd bytes", conn->on_tcp.fd, reads);
         if (server->onRead) {
             server->onRead(conn, kronkbuffer, reads);
         }
     } else if (reads == 0) {
-        knError(server->logger, "Connection [%d]: connection lost", conn->fd);
+        knError(server->logger, "Connection [%d]: connection lost", conn->on_tcp.fd);
         return KNEVTKICK;
     } else {
         if (errno != EAGAIN && errno != EWOULDBLOCK) {
-            knError(server->logger, "Connection [%d]: connection lost", conn->fd);
+            knError(server->logger, "Connection [%d]: connection lost", conn->on_tcp.fd);
             return KNEVTKICK;
         }
     }

@@ -4,10 +4,12 @@
 ** File description:
 ** Clear the server
 */
+#include "kronknet/macros/types.h"
 #include "kronknet/server/server.h"
 #include <unistd.h>
 #include "../pool/pool.h"
 #include "../server.h"
+#include "kronknet/utils/hashmap/hashmap.h"
 
 void knServer_clear(
     knServer *server
@@ -18,6 +20,9 @@ void knServer_clear(
     }
     if (server->fd != -1) {
         close(server->fd);
+    }
+    if (server->flags & knUDP) {
+        knMap_destroy(server->on_udp.hashmap);
     }
     knPool_clear(&server->pool);
 }

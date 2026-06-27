@@ -11,6 +11,7 @@
 #include "kronknet/macros/optimization.h"
 #include "kronknet/macros/types.h"
 #include <arpa/inet.h>
+#include <kronknet/utils/hashmap/hashmap.h>
 #include <netinet/in.h>
 #include <stdbool.h>
 #include <stddef.h>
@@ -39,13 +40,17 @@ static int __knServer_nonBlocking(
 }
 
 static int __knServer_bind(
-    knServer *server
+    knServer *server,
+    knPort port
 )
 {
     int opt = 1;
     struct sockaddr_in addr;
     socklen_t len = sizeof(addr);
 
+    server->addr.sin_family = AF_INET;
+    server->addr.sin_port = htons(port);
+    server->addr.sin_addr.s_addr = htonl(INADDR_ANY);
     if (setsockopt(server->fd, SOL_SOCKET, SO_REUSEADDR,
         &opt, sizeof(opt)) == -1) {
         return KNEVTNET;
@@ -92,7 +97,9 @@ int knServer_init(
 
     if (!server)
         return KNEVTERR;
+
     __knServer_basics(server, flags);
+
     if (flags & knTCP && flags & knUDP) {
         return KNEVTARGS;
     }
@@ -101,27 +108,32 @@ int knServer_init(
     server->fd = socket(AF_INET, type, 0);
     if (server->fd == -1)
         return KNEVTNET;
+
     if (__knServer_nonBlocking(server->fd) != KNEVTOK) {
         close(server->fd);
         return KNEVTNET;
     }
-    server->addr.sin_family = AF_INET;
-    server->addr.sin_port = htons(port);
-    server->addr.sin_addr.s_addr = htonl(INADDR_ANY);
-    if (__knServer_bind(server) != KNEVTOK) {
+    if (__knServer_bind(server, port) != KNEVTOK) {
         close(server->fd);
         return KNEVTNET;
     }
-    // FIXME: After UDP, there is no need to listen
     if (type == SOCK_STREAM) {
         if (listen(server->fd, SOMAXCONN) == -1) {
             close(server->fd);
             return KNEVTNET;
         }
     }
+
     if (knPool_init(&server->pool) != KNEVTOK) {
         close(server->fd);
         return KNEVTERR;
+    }
+    if (server->flags & knUDP) {
+        server->on_udp.hashmap = knMap_create(knMap_basicHash, 8);
+        if (!server->on_udp.hashmap) {
+            close(server->fd);
+            return KNEVTMEM;
+        }
     }
     return knPool_registerFd(&server->pool, server->fd, NULL, POLLIN);
 }

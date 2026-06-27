@@ -28,7 +28,7 @@ int knConnection_send(
     }
     ssize_t written = 0;
     if (knRBuff_isEmpty(conn->out_buff)) {
-        written = send(conn->fd, data, size, MSG_NOSIGNAL);
+        written = send(conn->on_tcp.fd, data, size, MSG_NOSIGNAL);
         if (written > 0) {
             if ((size_t)written == size) {
                 return KNEVTOK;

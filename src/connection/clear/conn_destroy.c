@@ -17,9 +17,9 @@ void knConnection_destroy(
     if (!conn) {
         return;
     }
-    if (conn->fd != -1) {
-        close(conn->fd);
-        conn->fd = -1;
+    if (conn->on_tcp.fd != -1) {
+        close(conn->on_tcp.fd);
+        conn->on_tcp.fd = -1;
     }
     if (conn->out_buff) {
         knRBuff_destroy(conn->out_buff);

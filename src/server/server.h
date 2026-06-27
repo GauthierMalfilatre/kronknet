@@ -9,6 +9,7 @@
     #include "kronknet/callback/callback.h"
     #include "kronknet/macros/types.h"
     #include <stdbool.h>
+    #include "kronknet/utils/hashmap/hashmap.h"
     #include "pool/pool.h"
     #include "kronknet/macros/types.h"
     #include "../utils/logger/logger.h"
@@ -34,6 +35,16 @@ typedef struct kronknet_server_s {
     knServer_OnDisconnect_t onDisconnect;         //!< onDisconnect callback
     char                    ip[INET_ADDRSTRLEN];  //!< The ip as a string
     knLoggerData            logger;               //!< The logger data
+    union {
+
+        struct {} on_tcp;  //!< Specific on TCP (maybe later were gonna add smth)
+        struct {
+
+            knMap* hashmap;  //!< The hashmap that contains knConnections
+
+        } on_udp;  //!< Specific on UDP
+
+    };  //!< The union to switch between protocols
 
 } knServer;
 ///////////////////////////////////////////////////////////////////////////////
@@ -44,6 +55,8 @@ void knServer_kickAtIndex(knServer *server, size_t idx);
 
 int knServer_receiveData(knServer *server, knConnection *conn);
 int knServer_accept(knServer *server);
+
+int knServer_onPollinUDP(knServer *server);
 
 
 ///////////////////////////////////////////////////////////////////////////////
