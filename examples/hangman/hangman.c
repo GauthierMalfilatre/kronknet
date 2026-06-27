@@ -55,7 +55,7 @@ void broadcast_board(GameState *game)
 
 void reset_game(GameState *game)
 {
-    strcpy(game->secret_word, "EPITECH");
+    strcpy(game->secret_word, "FREE");
     strcpy(game->display_word, "_______");
     game->attempts_left = MAX_ATTEMPTS;
     broadcast_message(game, "\r\n\r\n*** NOUVELLE PARTIE ! ***\r\n");
@@ -172,7 +172,7 @@ int main(void)
     knServer *server = knServer_create(4242);
     GameState game = {0};
     
-    strcpy(game.secret_word, "EPITECH");
+    strcpy(game.secret_word, "FREE");
     strcpy(game.display_word, "_______");
     game.attempts_left = MAX_ATTEMPTS;
     game.player_id_counter = 1;

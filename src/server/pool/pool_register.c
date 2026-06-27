@@ -1,11 +1,12 @@
 /*
-** EPITECH PROJECT, 2026
+** FREE PROJECT, 2026
 ** KRONKNET
 ** File description:
 ** Register an fd for the server's pool
 */
 #include "kronknet/connection/connection.h"
 #include "kronknet/macros/errdef.h"
+#include "kronknet/macros/types.h"
 #include "pool.h"
 #include <stddef.h>
 #include <stdlib.h>
@@ -37,7 +38,7 @@ static int __knPool_ensureCapacity(
 
 int knPool_registerFd(
     knPool *pool,
-    int fd,
+    knSocket fd,
     knConnection *conn,
     int events
 )

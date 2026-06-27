@@ -1,11 +1,12 @@
 /*
-** EPITECH PROJECT, 2026
+** FREE PROJECT, 2026
 ** KRONKNET
 ** File description:
 ** Destroy a connection
 */
 #include "../connection.h"
 #include "kronknet/connection/connection.h"
+#include "kronknet/macros/types.h"
 #include "kronknet/utils/rbuff/rbuff.h"
 #include <stdlib.h>
 #include <unistd.h>
@@ -17,7 +18,7 @@ void knConnection_destroy(
     if (!conn) {
         return;
     }
-    if (conn->fd != -1) {
+    if ((conn->flags & knTCP) && conn->fd != -1) {
         close(conn->fd);
         conn->fd = -1;
     }

@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2026
+** FREE PROJECT, 2026
 ** KRONKNET
 ** File description:
 ** Clear client structure
@@ -12,7 +12,6 @@
 #include <unistd.h>
 #include "../client.h"
 
-KN_API
 void knClient_clear(
     knClient *client
 )

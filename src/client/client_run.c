@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2026
+** FREE PROJECT, 2026
 ** KRONKNET
 ** File description:
 ** Run the client
@@ -8,6 +8,7 @@
 #include "kronknet/client/client.h"
 #include "kronknet/macros/errdef.h"
 #include "kronknet/macros/optimization.h"
+#include "kronknet/macros/types.h"
 #include "kronknet/utils/rbuff/rbuff.h"
 #include <stdbool.h>
 #include <stddef.h>
@@ -22,12 +23,15 @@ static int __knClient_onPollout(
 )
 {
     uint8_t kronkbuffer[KNBUFFSIZ] = {};
-
     size_t usage = knRBuff_usage(client->buff);
+
+    if (usage == 0) return KNEVTOK;
+
     knInfo(client->logger, "Attempting to send some data from ring buffer");
-    knRBuff_pop(client->buff, kronkbuffer, usage);
+    knRBuff_peek(client->buff, kronkbuffer, usage);
     ssize_t sends = send(client->fd, kronkbuffer, usage, MSG_NOSIGNAL);
     if (sends > 0) {
+        knRBuff_pop(client->buff, NULL, sends);
         knInfo(client->logger, "Sent %zu bytes, remaining: %zu bytes.", (size_t)sends, knRBuff_usage(client->buff));
         if (knRBuff_isEmpty(client->buff)) {
             if (client->onWrite) {
@@ -35,7 +39,7 @@ static int __knClient_onPollout(
             }
         }
     } else {
-        knError(client->logger, "Failed to send data, remaining: %zu bytes.", knRBuff_remaining(client->buff));
+        knWarn(client->logger, "Failed to send data or buffer full, remaining: %zu bytes.", knRBuff_usage(client->buff));
     }
     return KNEVTOK;
 }
@@ -83,11 +87,19 @@ int knClient_run(
     knClient *client
 )
 {
+    int res;
+
     if (!client) {
         return KNEVTARGS;
     }
+    knInfo(client->logger, "Cient (mode=%s) running",
+        (client->flags & knTCP) ? "TCP" : "UDP");
     while (client->running) {
-        if (knClient_runOnce(client, -1) != KNEVTOK) {
+        res = knClient_runOnce(client, -1);
+        if (res == KNEVTKICK) {
+            break;
+        }
+        if (res != KNEVTOK) {
             return KNEVTERR;
         }
     }

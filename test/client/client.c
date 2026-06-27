@@ -1,6 +1,7 @@
 #include "kronknet/client/client.h"
 #include "kronknet/callback/callback.h"
 #include "kronknet/macros/errdef.h"
+#include "kronknet/macros/types.h"
 #include <stddef.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -34,15 +35,16 @@ void set_stdin_nonblocking(void)
 
 int main(void)
 {
-    knClient *client = knClient_create();
+    knClient *client = knClient_create(knUDP);
 
     if (!client)
         return 84;
         
-    knClient_setLogging(client, true);
-    knClient_onConnectionCallback(client, &onConnectionCallback);
-    knClient_onReadCallback(client, &onReadCallback);
-    knClient_onDisconnectionCallback(client, &onDisconnectionCallback);
+    knClient_setLogLevel(client, knLogTrace);
+    knClient_setLogOutput(client, stdout);
+    knClient_setOnConnect(client, &onConnectionCallback);
+    knClient_setOnRead(client, &onReadCallback);
+    knClient_setOnDisconnect(client, &onDisconnectionCallback);
 
     if (knClient_connect(client, "localhost", 4242) != KNEVTOK) {
         knClient_destroy(client);

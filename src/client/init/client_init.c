@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2026
+** FREE PROJECT, 2026
 ** KRONKNET
 ** File description:
 ** Initialize client structure
@@ -34,14 +34,15 @@ static void __knClient_initStatic(
     };
 }
 
-KN_API
 int knClient_init(
-    knClient *client
+    knClient *client,
+    knFlags flags
 )
 {
     if (!client) {
         return KNEVTARGS;
     }
     __knClient_initStatic(client);
+    client->flags = flags;
     return KNEVTOK;
 }

@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2026
+** FREE PROJECT, 2026
 ** KRONKNET
 ** File description:
 ** Send message to a connection
@@ -26,27 +26,8 @@ int knConnection_send(
     if (!conn || !data || size == 0) {
         return KNEVTARGS;
     }
-    ssize_t written = 0;
-    if (knRBuff_isEmpty(conn->out_buff)) {
-        written = send(conn->fd, data, size, MSG_NOSIGNAL);
-        if (written > 0) {
-            if ((size_t)written == size) {
-                return KNEVTOK;
-            }
-        } else if (written == -1) {
-            if (errno != EAGAIN && errno != EWOULDBLOCK) {
-                return KNEVTKICK;
-            }
-            written = 0;
-        }
+    if (conn->sendHook) {
+        return conn->sendHook(conn, data, size);
     }
-    size_t remaining = size - written;
-    if (knRBuff_remaining(conn->out_buff) < remaining) {
-        return KNEVTKICK;
-    }
-    if (knRBuff_push(conn->out_buff, data + written, remaining) == -1) {
-        return KNEVTERR;
-    }
-    knConnection_setEvents(conn, POLLOUT | POLLIN);
     return KNEVTOK;
 }
