@@ -5,13 +5,17 @@
 ** Unregister an fd for the server's poll
 */
 #include "kronknet/macros/errdef.h"
+#include "kronknet/macros/types.h"
 #include "pool.h"
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/poll.h>
 
-int knPool_unregister(knPool *pool, int fd)
+int knPool_unregister(
+    knPool *pool,
+    knSocket fd
+)
 {
     if (!pool || fd == -1) {
         return KNEVTERR;
@@ -24,7 +28,10 @@ int knPool_unregister(knPool *pool, int fd)
     return KNEVTERR;
 }
 
-int knPool_unregisterAtIndex(knPool *pool, size_t index)
+int knPool_unregisterAtIndex(
+    knPool *pool,
+    size_t index
+)
 {
     if (!pool || index == -1UL || index >= pool->count) {
         return KNEVTERR;

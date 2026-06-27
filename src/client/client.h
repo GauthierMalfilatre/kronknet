@@ -22,7 +22,7 @@
 typedef struct kronknet_client_s {
 
     knBool                  running;       //!< Is the client running ??
-    int                     fd;            //!< The file descriptor of the client
+    knSocket                fd;            //!< The file descriptor of the client
     void*                   user_ptr;      //!< The user data ?
     knRBuff*                buff;          //!< The out buffer (when send is not possible)
     short                   events;        //!< The events

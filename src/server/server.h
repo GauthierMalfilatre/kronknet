@@ -10,6 +10,7 @@
     #include "kronknet/macros/types.h"
     #include <stdbool.h>
     #include "pool/pool.h"
+    #include "kronknet/macros/types.h"
     #include "../utils/logger/logger.h"
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -22,7 +23,7 @@
 typedef struct kronknet_server_s {
 
     knBool                  running;              //!< Is the server running
-    int                     fd;                   //!< The fd of the server socket
+    knSocket                fd;                   //!< The fd of the server socket
     struct sockaddr_in      addr;                 //!< The address of the server
     knPool                  pool;                 //!< The pool of pollfds to look on
     void*                   user_ptr;             //!< Data like a struct given by the user

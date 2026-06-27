@@ -24,7 +24,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 typedef struct kronknet_connection_s {
 
-    int                fd;                  //!< The file descriptor of the client
+    knSocket           fd;                  //!< The file descriptor of the client
     knPort             port;                //!< The port using by the connection
     socklen_t          addr_length;         //!< The length of the addr
     struct sockaddr_in addr;                //!< The actual addr
@@ -33,7 +33,7 @@ typedef struct kronknet_connection_s {
     knRBuff           *out_buff;            //!< The out buffer    
     short int         *evtptr;              //!< The ptr to the events in the pool
     size_t             id;                  //!< The id of the connection ( !same as fd )
-    knBool               disconnected;      //!< Is disconnected ?
+    knBool             disconnected;        //!< Is disconnected ?
 
 } knConnection;
 ///////////////////////////////////////////////////////////////////////////////
