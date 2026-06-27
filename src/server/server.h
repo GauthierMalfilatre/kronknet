@@ -9,10 +9,49 @@
     #include "kronknet/callback/callback.h"
     #include "kronknet/macros/types.h"
     #include <stdbool.h>
+    #include <stddef.h>
     #include "kronknet/utils/hashmap/hashmap.h"
     #include "pool/pool.h"
     #include "kronknet/macros/types.h"
     #include "../utils/logger/logger.h"
+
+///////////////////////////////////////////////////////////////////////////////
+/**
+ * @brief Declararion of pollin hook
+ *
+ * @note  idx does not serve in UDP mode
+ */
+///////////////////////////////////////////////////////////////////////////////
+typedef int (*knServer_onPollinHook)(knServer *server, size_t *idx);
+///////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////////////////
+/**
+ * @brief Declaration of pollout hook
+ */
+///////////////////////////////////////////////////////////////////////////////
+typedef int (*knServer_onPolloutHook)(knServer *server, size_t *idx);
+///////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////////////////
+/**
+ * @brief Declaration of Cleanup hook (clear inactive connections)
+ */
+///////////////////////////////////////////////////////////////////////////////
+typedef void (*knServer_onCleanupHook)(knServer *server);
+///////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////////////////
+/**
+ * @brief Declaration of Destruction hook
+ */
+///////////////////////////////////////////////////////////////////////////////
+typedef void (*knServer_onDestructionHook)(knServer *server);
+///////////////////////////////////////////////////////////////////////////////
+
 
 ///////////////////////////////////////////////////////////////////////////////
 /**
@@ -35,6 +74,7 @@ typedef struct kronknet_server_s {
     knServer_OnDisconnect_t onDisconnect;         //!< onDisconnect callback
     char                    ip[INET_ADDRSTRLEN];  //!< The ip as a string
     knLoggerData            logger;               //!< The logger data
+
     union {
 
         struct {} on_tcp;  //!< Specific on TCP (maybe later were gonna add smth)
@@ -45,19 +85,22 @@ typedef struct kronknet_server_s {
         } on_udp;  //!< Specific on UDP
 
     };  //!< The union to switch between protocols
+    knServer_onPollinHook      onPollinHook;   //!< on pollin hook
+    knServer_onPolloutHook     onPolloutHook;  //!< on pollout hook
+    knServer_onCleanupHook     onCleanupHook;  //!< on cleanup hook
+    knServer_onDestructionHook onDestroyHook;  //!< on destruction hook
 
 } knServer;
 ///////////////////////////////////////////////////////////////////////////////
 
+
 // TODO: Documentation
+
+// NOTE: ON TCP
 void knServer_kick(knServer *server, knConnection *conn);
 void knServer_kickAtIndex(knServer *server, size_t idx);
 
-int knServer_receiveData(knServer *server, knConnection *conn);
-int knServer_accept(knServer *server);
-
 int knServer_onPollinUDP(knServer *server);
-
 
 ///////////////////////////////////////////////////////////////////////////////
 /**

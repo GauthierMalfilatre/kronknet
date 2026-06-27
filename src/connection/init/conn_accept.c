@@ -11,12 +11,8 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <netinet/in.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <sys/socket.h>
 #include <unistd.h>
-#include "arpa/inet.h"
-#include "kronknet/utils/rbuff/rbuff.h"
 #include "../../server/server.h"
 
 knConnection *knConnection_accept(
@@ -38,7 +34,9 @@ knConnection *knConnection_accept(
         fcntl(fd, F_SETFL, flags | O_NONBLOCK);
     conn = knConnection_create(&addr);
     if (!conn) {
+        close(fd);
         return NULL;
     }
+    conn->on_tcp.fd = fd;
     return conn;
 }

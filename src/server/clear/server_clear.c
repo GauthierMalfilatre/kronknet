@@ -21,8 +21,8 @@ void knServer_clear(
     if (server->fd != -1) {
         close(server->fd);
     }
-    if (server->flags & knUDP) {
-        knMap_destroy(server->on_udp.hashmap);
+    if (server->onDestroyHook) {
+        server->onDestroyHook(server);
     }
     knPool_clear(&server->pool);
 }

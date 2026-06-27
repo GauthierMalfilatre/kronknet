@@ -6,12 +6,11 @@
 */
 #include "kronknet/macros/errdef.h"
 #include "kronknet/macros/types.h"
-#include "kronknet/mkn/new.h"
-#include "kronknet/mkn/object.h"
 #include "kronknet/mkn/server.h"
 #include "kronknet/server/server.h"
 #include "kronknet/connection/connection.h"
 #include "kronknet/callback/callback.h"
+#include <signal.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -19,6 +18,15 @@
 #include <string.h>
 
 #define MAX_PLAYER 4
+
+volatile sig_atomic_t keep_running = 1;
+
+void sigint_handler(int signum)
+{
+    if (signum == SIGINT) {
+        keep_running = 0;
+    }
+}
 
 typedef struct Player_s
 {
@@ -90,9 +98,19 @@ int onDisconnectionCallback(knServer *server, knConnection *conn)
     return 0;
 }
 
+__attribute__((constructor)) void set_signal(void)
+{
+    struct sigaction sa;
+
+    sa.sa_handler = sigint_handler;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = 0;
+    sigaction(SIGINT, &sa, NULL);
+}
+
 int main(void)
 {
-    knServer *server = knServer_create(4242, knUDP);
+    knServer *server = knServer_create(4242, knTCP);
     World     world = {{}, 0};
 
     knServer_setUserPtr(server, &world);
@@ -103,12 +121,15 @@ int main(void)
     knServer_setOnDisconnect(server, &onDisconnectionCallback);
 
     // knServer_run(server);
-    while (knServer_isRunning(server)) {
+    while (knServer_isRunning(server) && keep_running) {
         knServer_runOnce(server, 2000);
         // printf("Update game loop\n");
         for (size_t i = 0; i < world.nplayers; ++i) {
             printf("Player with fd [%zu] is alive!\n", knConnection_getId(world.players[i]->conn));
         }
+    }
+    for (size_t i = 0; i < world.nplayers; ++i) {
+        free(world.players[i]);
     }
     knServer_destroy(server);
     return 0;

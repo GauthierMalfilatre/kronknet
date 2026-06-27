@@ -8,7 +8,6 @@
 #include "kronknet/callback/callback.h"
 #include "../pool/pool.h"
 #include "../server.h"
-#include "kronknet/macros/optimization.h"
 #include "kronknet/macros/types.h"
 #include <arpa/inet.h>
 #include <kronknet/utils/hashmap/hashmap.h>
@@ -21,6 +20,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include "../pool/pool.h"
+#include "../hooks/tcp/tcp.h"
 
 static int __knServer_nonBlocking(
     int fd
@@ -86,6 +86,23 @@ static void __knServer_basics(
     };
 }
 
+static void __knServer_initHooks(
+    knServer *server
+)
+{
+    if (server->flags & knTCP) {
+        server->onPollinHook  = &knServer_tcpPollinHook;
+        server->onPolloutHook = &knServer_tcpPolloutHook;
+        server->onCleanupHook = &knServer_tcpCleanupHook;
+        server->onDestroyHook = NULL;
+    } else if (server->flags & knUDP) {
+        server->onPollinHook  = NULL;
+        server->onPolloutHook = NULL;
+        server->onCleanupHook = NULL;
+        server->onDestroyHook = NULL;
+    }
+}
+
 int knServer_init(
     knServer *server,
     knPort port,
@@ -99,6 +116,7 @@ int knServer_init(
         return KNEVTERR;
 
     __knServer_basics(server, flags);
+    __knServer_initHooks(server);
 
     if (flags & knTCP && flags & knUDP) {
         return KNEVTARGS;
