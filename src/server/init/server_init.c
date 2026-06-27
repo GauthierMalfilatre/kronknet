@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2026
+** FREE PROJECT, 2026
 ** KRONKNET
 ** File description:
 ** Init the server
@@ -15,7 +15,6 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
-#include <stdio.h>
 #include <sys/poll.h>
 #include <sys/socket.h>
 #include <unistd.h>
@@ -66,9 +65,11 @@ static int __knServer_bind(
 }
 
 static void __knServer_basics(
-    knServer *server
+    knServer *server,
+    knFlags flags
 )
 {
+    server->flags = flags;
     server->running = true;
     server->onConnection = NULL;
     server->onWrite = NULL;
@@ -80,16 +81,26 @@ static void __knServer_basics(
     };
 }
 
+// FIXME: Init and clear don't needs to be exposed, since structure is opaque
 KN_API
 int knServer_init(
     knServer *server,
-    knPort port
+    knPort port,
+    knFlags flags
 )
 {
+    // NOTE: By default, protocol is TCP
+    int type = SOCK_STREAM;
+
     if (!server)
         return KNEVTERR;
-    __knServer_basics(server);
-    server->fd = socket(AF_INET, SOCK_STREAM, 0);
+    __knServer_basics(server, flags);
+    if (flags & knTCP && flags & knUDP) {
+        return KNEVTARGS;
+    }
+    if (flags & knTCP) type = SOCK_STREAM;
+    else if (flags & knUDP) type = SOCK_DGRAM;
+    server->fd = socket(AF_INET, type, 0);
     if (server->fd == -1)
         return KNEVTNET;
     if (__knServer_nonBlocking(server->fd) != KNEVTOK) {
@@ -103,9 +114,12 @@ int knServer_init(
         close(server->fd);
         return KNEVTNET;
     }
-    if (listen(server->fd, SOMAXCONN) == -1) {
-        close(server->fd);
-        return KNEVTNET;
+    // FIXME: After UDP, there is no need to listen
+    if (type == SOCK_STREAM) {
+        if (listen(server->fd, SOMAXCONN) == -1) {
+            close(server->fd);
+            return KNEVTNET;
+        }
     }
     if (knPool_init(&server->pool) != KNEVTOK) {
         close(server->fd);

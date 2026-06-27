@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2026
+** FREE PROJECT, 2026
 ** KRONKNET
 ** File description:
 ** Create the server
@@ -14,7 +14,8 @@
 
 KN_API
 knServer *knServer_create(
-    knPort port
+    knPort port,
+    knFlags flags
 )
 {
     knServer *server = calloc(1, sizeof(knServer));
@@ -22,7 +23,7 @@ knServer *knServer_create(
     if (!server) {
         return NULL;
     }
-    if (knServer_init(server, port) != KNEVTOK) {
+    if (knServer_init(server, port, flags) != KNEVTOK) {
         knServer_destroy(server);
         return NULL;
     }

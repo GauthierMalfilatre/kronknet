@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2026
+** FREE PROJECT, 2026
 ** KRONKNET
 ** File description:
 ** Register an fd for the server's pool

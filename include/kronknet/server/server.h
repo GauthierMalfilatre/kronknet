@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2026
+** FREE PROJECT, 2026
 ** KRONKNET
 ** File description:
 ** Server struct definition
@@ -24,11 +24,12 @@ typedef struct kronknet_server_s knServer;
 /**
  * @brief Create a new server instance.
  *
- * @param port The port to bind to.
+ * @param port  The port to bind to.
+ * @param flags The flags to create the server with
  * @return The allocated server, or NULL on failure.
  */
 ///////////////////////////////////////////////////////////////////////////////
-KN_API knServer* knServer_create(knPort port);
+KN_API knServer* knServer_create(knPort port, knFlags flags);
 ///////////////////////////////////////////////////////////////////////////////
 
 
@@ -37,11 +38,12 @@ KN_API knServer* knServer_create(knPort port);
  * @brief Initialize an existing server instance.
  *
  * @param server The server to initialize.
- * @param port The port to bind to.
+ * @param port   The port to bind to.
+ * @param flags  The flags to apply.
  * @return 0 on success, -1 on failure.
  */
 ///////////////////////////////////////////////////////////////////////////////
-KN_API int       knServer_init(knServer *server, knPort port);
+KN_API int       knServer_init(knServer *server, knPort port, knFlags flags);
 ///////////////////////////////////////////////////////////////////////////////
 
 

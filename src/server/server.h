@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2026
+** FREE PROJECT, 2026
 ** KRONKNET
 ** File description:
 ** Server struct definition
@@ -22,6 +22,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 typedef struct kronknet_server_s {
 
+    knFlags                 flags;                //!< The flags given at creation
     knBool                  running;              //!< Is the server running
     knSocket                fd;                   //!< The fd of the server socket
     struct sockaddr_in      addr;                 //!< The address of the server

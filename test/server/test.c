@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2026
+** FREE PROJECT, 2026
 ** ZAPPY
 ** File description:
 ** network library in C, for the zappy project
