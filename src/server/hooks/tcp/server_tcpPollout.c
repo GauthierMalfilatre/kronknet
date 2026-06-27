@@ -22,7 +22,7 @@ int knServer_tcpPolloutHook(
 
     knInfo(server->logger, "Connection [%d]: Attempting to send some data", conn->id);
     knRBuff_peek(conn->out_buff, tmp, usage);
-    ssize_t sends = send(conn->on_tcp.fd, tmp, usage, MSG_NOSIGNAL);
+    ssize_t sends = send(conn->fd, tmp, usage, MSG_NOSIGNAL);
     if (sends > 0) {
         knRBuff_pop(conn->out_buff, NULL, sends);
         knInfo(server->logger, "Connection [%d]: sent %zu bytes, remaining: %zu bytes.", conn->id, (size_t)sends, knRBuff_usage(conn->out_buff));

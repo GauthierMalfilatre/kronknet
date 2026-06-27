@@ -25,18 +25,18 @@ static int __knServer_accept(
     newConn = knConnection_accept(server);
     if (!newConn)
         return KNEVTERR;
-    knInfo(server->logger, "Connection [%d] from %s:%d", newConn->on_tcp.fd, newConn->ip, newConn->port);
-    if (knPool_registerFd(&server->pool, newConn->on_tcp.fd, newConn, POLLIN) != KNEVTOK) {
-            knError(server->logger, "Connection [%d]: failed to add to pool", newConn->on_tcp.fd);
+    knInfo(server->logger, "Connection [%d] from %s:%d", newConn->fd, newConn->ip, newConn->port);
+    if (knPool_registerFd(&server->pool, newConn->fd, newConn, POLLIN) != KNEVTOK) {
+            knError(server->logger, "Connection [%d]: failed to add to pool", newConn->fd);
             return KNEVTERR;
     }
-    knInfo(server->logger, "Connection [%d]: added to pool", newConn->on_tcp.fd);
+    knInfo(server->logger, "Connection [%d]: added to pool", newConn->fd);
     if (server->onConnection) {
         switch (server->onConnection(server, newConn)) {
             case KNEVTOK:
                 break;
             default:
-                knError(server->logger, "Connection [%d]: Error on \"onConnection\" callback", newConn->on_tcp.fd);
+                knError(server->logger, "Connection [%d]: Error on \"onConnection\" callback", newConn->fd);
                 knServer_kick(server, newConn);
                 return KNEVTKICK;
         }
@@ -54,7 +54,7 @@ static int __knServer_receiveData(
     if (!server || !conn) {
         return KNEVTARGS;
     }
-    ssize_t reads = recv(conn->on_tcp.fd, kronkbuffer, sizeof(kronkbuffer), 0);
+    ssize_t reads = recv(conn->fd, kronkbuffer, sizeof(kronkbuffer), 0);
     if (reads > 0) {
         knInfo(server->logger, "Connection [%d] sends %zd bytes", conn->id, reads);
         conn->last_data = monotonic();

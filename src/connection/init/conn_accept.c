@@ -32,11 +32,11 @@ knConnection *knConnection_accept(
     flags = fcntl(fd, F_GETFL, 0);
     if (flags != -1)
         fcntl(fd, F_SETFL, flags | O_NONBLOCK);
-    conn = knConnection_create(&addr);
+    conn = knConnection_create(&addr, server->flags);
     if (!conn) {
         close(fd);
         return NULL;
     }
-    conn->on_tcp.fd = fd;
+    conn->fd = fd;
     return conn;
 }
