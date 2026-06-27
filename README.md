@@ -121,6 +121,7 @@ apt install cmake
 1. Clone the repo
    ```sh
    git clone https://github.com/GauthierMalfilatre/kronknet.git
+   cd kronknet/
    ```
 2. Use provided `tools.sh` file
    ```sh
