@@ -7,6 +7,7 @@
 #include "kronknet/callback/callback.h"
 #include "kronknet/client/client.h"
 #include <stdlib.h>
+#include "../client.h"
 
 KN_API
 void knClient_destroy(

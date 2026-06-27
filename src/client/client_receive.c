@@ -24,19 +24,28 @@ int knClient_receiveData(
     if (!client) {
         return KNEVTARGS;
     }
+    
     ssize_t reads = recv(client->fd, kronkbuffer, KNBUFFSIZ, 0);
+    
     if (reads > 0) {
-        knInfo(client->logger, "Received: %.*s", reads, kronkbuffer);
+        knInfo(client->logger, "Received: %.*s", (int)reads, kronkbuffer);
         if (client->onRead) {
             client->onRead(client, kronkbuffer, reads);
         }
     } else if (reads == 0) {
-        knError(client->logger, "Connection lost");
+        if (client->flags & knUDP) {
+            knInfo(client->logger, "Received an empty UDP datagram");
+            if (client->onRead) {
+                client->onRead(client, kronkbuffer, 0);
+            }
+            return KNEVTOK;
+        }
+        knError(client->logger, "Connection lost (EOF)");
         client->running = false;
         return KNEVTKICK;
     } else {
         if (errno != EAGAIN && errno != EWOULDBLOCK) {
-            knError(client->logger, "Connection lost");
+            knError(client->logger, "Connection lost (Internal Error)");
             client->running = false;
             return KNEVTKICK;
         }

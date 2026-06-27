@@ -20,7 +20,7 @@
 KN_API
 int knClient_sendServer(
     knClient *client,
-    void *data,
+    const void *data,
     size_t size
 )
 {
@@ -28,6 +28,7 @@ int knClient_sendServer(
         return KNEVTARGS;
     }
     ssize_t written = 0;
+    const uint8_t *byte_ptr = (const uint8_t *)data;
     if (knRBuff_isEmpty(client->buff)) {
         written = send(client->fd, data, size, MSG_NOSIGNAL);
         if (written > 0) {
@@ -45,9 +46,10 @@ int knClient_sendServer(
     if (knRBuff_remaining(client->buff) < remaining) {
         return KNEVTKICK;
     }
-    if (knRBuff_push(client->buff, data + written, remaining) == -1) {
+    if (knRBuff_push(client->buff, byte_ptr + written, remaining) == -1) {
         return KNEVTERR;
     }
+    
     client->events |= POLLOUT;
     return KNEVTOK;
 }

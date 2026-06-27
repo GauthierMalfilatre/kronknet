@@ -7,7 +7,7 @@
 
 SRC = 	client.c
 
-LDFLAGS += -L../../Debug -lkronknet
+LDFLAGS += -L../../Debug -lkronknet -Wl,-rpath=../../Debug
 CFLAGS += -I../../include/
 
 OBJ = $(SRC:.c=.o)

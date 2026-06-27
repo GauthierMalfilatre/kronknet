@@ -12,7 +12,6 @@
 #include <unistd.h>
 #include "../client.h"
 
-KN_API
 void knClient_clear(
     knClient *client
 )
