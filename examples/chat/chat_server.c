@@ -113,7 +113,7 @@ int main(
         return CHERR;
     }
     // NOTE: Create server
-    knServer *server = knServer_create(strtol(argv[1], NULL, 10));
+    knServer *server = knServer_create(strtol(argv[1], NULL, 10), knTCP);
     if (!server) {
         return CHERR;
     }

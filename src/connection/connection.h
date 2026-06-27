@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2026
+** FREE PROJECT, 2026
 ** KRONKNET
 ** File description:
 ** Connection struct definition
@@ -12,7 +12,10 @@
     #include <stdbool.h>
     #include <stddef.h>
     #include <netinet/in.h>
+    #include <stdint.h>
     #include <sys/socket.h>
+
+typedef int (*knConnection_sendHook)(knConnection *, const void *, size_t);
 
 ///////////////////////////////////////////////////////////////////////////////
 /**
@@ -24,16 +27,23 @@
 ///////////////////////////////////////////////////////////////////////////////
 typedef struct kronknet_connection_s {
 
-    int                fd;                  //!< The file descriptor of the client
-    knPort             port;                //!< The port using by the connection
-    socklen_t          addr_length;         //!< The length of the addr
-    struct sockaddr_in addr;                //!< The actual addr
-    char               ip[INET_ADDRSTRLEN]; //!< The well-formated ip adrr
-    void              *user_ptr;            //!< The user datas (eg User struct ...)
-    knRBuff           *out_buff;            //!< The out buffer    
-    short int         *evtptr;              //!< The ptr to the events in the pool
-    size_t             id;                  //!< The id of the connection ( !same as fd )
-    knBool               disconnected;      //!< Is disconnected ?
+    knBool                disconnected;        //!< Is disconnected ?
+    knSocket              fd;                  //!< The fd of the client (or the server in UDP mode)
+    knFlags               flags;               //!< The flags
+    size_t                id;                  //!< The id of the connection ( !same as fd )
+    socklen_t             addr_length;         //!< The length of the addr
+    struct sockaddr_in    addr;                //!< The actual addr
+    knPort                port;                //!< The port using by the connection
+    char                  ip[INET_ADDRSTRLEN]; //!< The well-formated ip adrr
+    uint64_t              last_data;           //!< The last time (ms)
+    void                 *user_ptr;            //!< The user datas (eg User struct ...)
+    knRBuff              *out_buff;            //!< The out buffer    
+    knConnection_sendHook sendHook;            //!< The send hook
+    short int            *evtptr;              //!< The ptr to the events in the pool
+    union {
+        struct {} on_udp;  //!< On UDP datas
+        struct {} on_tcp;  //!< On tcp datas
+    };
 
 } knConnection;
 ///////////////////////////////////////////////////////////////////////////////
@@ -41,6 +51,8 @@ typedef struct kronknet_connection_s {
 // TODO: Documentation
 knConnection *knConnection_accept(const knServer *server);
 void knConnection_destroy(knConnection *conn);
+
+knConnection *knConnection_create(const struct sockaddr_in* addr, knFlags flags);
 
 int knConnection_setEvents(knConnection *conn, short int events);
 

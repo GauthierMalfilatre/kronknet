@@ -1,5 +1,5 @@
 ##
-## EPITECH PROJECT, 2026
+## FREE PROJECT, 2026
 ## KRONKNET
 ## File description:
 ## Makefile for kronknet tests
@@ -7,7 +7,7 @@
 
 SRC = 	test.c
 
-LDFLAGS += -L../../Release -static -lkronknet
+LDFLAGS += -L../../Debug -lkronknet -Wl,-rpath=../../Debug
 CFLAGS += -I../../include/
 
 OBJ = $(SRC:.c=.o)

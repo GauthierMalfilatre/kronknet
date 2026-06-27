@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2026
+** FREE PROJECT, 2026
 ** KRONKNET
 ** File description:
 ** Server impl for MKN
@@ -28,7 +28,7 @@ static void mknServer_ctor(mknServerClass *thus, va_list *args)
     if (!thus || !args) {
         KN_PANIC("Bad parameter");
     }
-    thus->_server = knServer_create(va_arg(*args, int));
+    thus->_server = knServer_create(va_arg(*args, int), 0);
     if (!thus->_server) {
         KN_PANIC("[mknServer]: Failed to initialize internal ressources");
     }

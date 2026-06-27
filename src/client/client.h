@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2026
+** FREE PROJECT, 2026
 ** KRONKNET
 ** File description:
 ** Client struct private impl
@@ -21,8 +21,9 @@
 ///////////////////////////////////////////////////////////////////////////////
 typedef struct kronknet_client_s {
 
+    knFlags                 flags;         //!< The flags of the client
     knBool                  running;       //!< Is the client running ??
-    int                     fd;            //!< The file descriptor of the client
+    knSocket                fd;            //!< The file descriptor of the client
     void*                   user_ptr;      //!< The user data ?
     knRBuff*                buff;          //!< The out buffer (when send is not possible)
     short                   events;        //!< The events
@@ -32,10 +33,37 @@ typedef struct kronknet_client_s {
     knClient_OnWrite_t      onWrite;       //!< The callback when the client has drained his internal buffer
     knClient_OnDisconnect_t onDisconnect;  //!< The callback when the client disconnect
     knLoggerData            logger;        //!< The logger context
+    union {
+        struct {} on_tcp;
+        struct {} on_udp;
+    };
 
 } knClient;
 ///////////////////////////////////////////////////////////////////////////////
 
 int knClient_receiveData(knClient *client);
+
+
+///////////////////////////////////////////////////////////////////////////////
+/**
+ * @brief Initialize a client instance.
+ *
+ * @param client The client to initialize.
+ * @return 0 on success, -1 on failure.
+ */
+///////////////////////////////////////////////////////////////////////////////
+int knClient_init(knClient *client, knFlags flags);
+///////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////////////////
+/**
+ * @brief Release the internal resources owned by a client.
+ *
+ * @param client The client to clear.
+ */
+///////////////////////////////////////////////////////////////////////////////
+void knClient_clear(knClient *client);
+///////////////////////////////////////////////////////////////////////////////
 
 #endif /* KRONKNET_CLIENT_IMPL_H */
