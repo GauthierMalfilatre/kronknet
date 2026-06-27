@@ -28,3 +28,6 @@ ex_*
 html/
 latex/
 Doxyfile.bak
+
+# Criterion & coverage
+*.gcno
