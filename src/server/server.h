@@ -10,6 +10,7 @@
     #include "kronknet/macros/types.h"
     #include <stdbool.h>
     #include <stddef.h>
+#include <stdint.h>
     #include "kronknet/utils/hashmap/hashmap.h"
     #include "pool/pool.h"
     #include "kronknet/macros/types.h"
@@ -74,13 +75,13 @@ typedef struct kronknet_server_s {
     knServer_OnDisconnect_t onDisconnect;         //!< onDisconnect callback
     char                    ip[INET_ADDRSTRLEN];  //!< The ip as a string
     knLoggerData            logger;               //!< The logger data
-
+    uint64_t                connection_timeout;   //!< The max seconds the connections can rest withoud sending data (default: UDP = 30,000, TCP = 180,000)
     union {
 
         struct {} on_tcp;  //!< Specific on TCP (maybe later were gonna add smth)
         struct {
 
-            knMap* hashmap;  //!< The hashmap that contains knConnections
+            knMap* connections;  //!< The hashmap that contains knConnections
 
         } on_udp;  //!< Specific on UDP
 

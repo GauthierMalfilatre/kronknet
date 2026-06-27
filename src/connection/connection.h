@@ -12,6 +12,7 @@
     #include <stdbool.h>
     #include <stddef.h>
     #include <netinet/in.h>
+#include <stdint.h>
     #include <sys/socket.h>
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -33,6 +34,7 @@ typedef struct kronknet_connection_s {
     short int         *evtptr;              //!< The ptr to the events in the pool
     size_t             id;                  //!< The id of the connection ( !same as fd )
     knBool             disconnected;        //!< Is disconnected ?
+    uint64_t           last_data;           //!< The last time (ms)
     union {
         struct {} on_udp;  //!< On UDP datas
         struct {

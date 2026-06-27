@@ -110,7 +110,7 @@ __attribute__((constructor)) void set_signal(void)
 
 int main(void)
 {
-    knServer *server = knServer_create(4242, knTCP);
+    knServer *server = knServer_create(4242, knUDP);
     World     world = {{}, 0};
 
     knServer_setUserPtr(server, &world);

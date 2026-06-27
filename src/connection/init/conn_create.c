@@ -16,6 +16,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include "arpa/inet.h"
+#include "kronknet/utils/monotonic.h"
 #include "kronknet/utils/rbuff/rbuff.h"
 #include "../../server/server.h"
 
@@ -33,6 +34,7 @@ knConnection *knConnection_create(
     conn->on_tcp.fd = -1;
     conn->port = ntohs(conn->addr.sin_port);
     conn->id = id++;
+    conn->last_data = monotonic();
     conn->disconnected = false;
     inet_ntop(AF_INET, &conn->addr.sin_addr, conn->ip, INET_ADDRSTRLEN);
     conn->out_buff = knRBuff_create(KNBUFFSIZ);

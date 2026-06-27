@@ -12,6 +12,7 @@
 #include "../../server.h"
 #include "../../../connection/connection.h"
 #include "../../pool/pool.h"
+#include "kronknet/utils/monotonic.h"
 
 static int __knServer_accept(
     knServer *server
@@ -55,16 +56,17 @@ static int __knServer_receiveData(
     }
     ssize_t reads = recv(conn->on_tcp.fd, kronkbuffer, sizeof(kronkbuffer), 0);
     if (reads > 0) {
-        knInfo(server->logger, "Connection [%d] sends %zd bytes", conn->on_tcp.fd, reads);
+        knInfo(server->logger, "Connection [%d] sends %zd bytes", conn->id, reads);
+        conn->last_data = monotonic();
         if (server->onRead) {
             server->onRead(conn, kronkbuffer, reads);
         }
     } else if (reads == 0) {
-        knError(server->logger, "Connection [%d]: connection lost", conn->on_tcp.fd);
+        knError(server->logger, "Connection [%d]: connection lost", conn->id);
         return KNEVTKICK;
     } else {
         if (errno != EAGAIN && errno != EWOULDBLOCK) {
-            knError(server->logger, "Connection [%d]: connection lost", conn->on_tcp.fd);
+            knError(server->logger, "Connection [%d]: connection lost", conn->id);
             return KNEVTKICK;
         }
     }
@@ -86,7 +88,7 @@ int knServer_tcpPollinHook(
         knInfo(server->logger, "Data received");
         switch (__knServer_receiveData(server, server->pool.conns[*idx])) {
             case KNEVTERR:
-                knError(server->logger, "Connection [%d]: Error while receiving data", server->pool.conns[*idx]->on_tcp.fd);
+                knError(server->logger, "Connection [%d]: Error while receiving data", server->pool.conns[*idx]->id);
                 break;
             case KNEVTKICK:
                 knServer_kickAtIndex(server, *idx);

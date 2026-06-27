@@ -6,10 +6,10 @@
 */
 #include "kronknet/callback/callback.h"
 #include "kronknet/connection/connection.h"
-#include "pool/pool.h"
-#include "server.h"
+#include "../../pool/pool.h"
+#include "../../server.h"
 #include <stddef.h>
-#include "../connection/connection.h"
+#include "../../../connection/connection.h"
 
 void knServer_kick(
     knServer *server,

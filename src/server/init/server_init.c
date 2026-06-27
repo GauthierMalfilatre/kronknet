@@ -21,6 +21,7 @@
 #include <fcntl.h>
 #include "../pool/pool.h"
 #include "../hooks/tcp/tcp.h"
+#include "../hooks/udp/udp.h"
 
 static int __knServer_nonBlocking(
     int fd
@@ -91,15 +92,17 @@ static void __knServer_initHooks(
 )
 {
     if (server->flags & knTCP) {
+        server->connection_timeout = 180000;
         server->onPollinHook  = &knServer_tcpPollinHook;
         server->onPolloutHook = &knServer_tcpPolloutHook;
         server->onCleanupHook = &knServer_tcpCleanupHook;
         server->onDestroyHook = NULL;
     } else if (server->flags & knUDP) {
-        server->onPollinHook  = NULL;
-        server->onPolloutHook = NULL;
-        server->onCleanupHook = NULL;
-        server->onDestroyHook = NULL;
+        server->connection_timeout = 30000;
+        server->onPollinHook  = &knServer_udpPollinHook;
+        server->onPolloutHook = &knServer_udpPolloutHook;
+        server->onCleanupHook = &knServer_udpCleanupHook;
+        server->onDestroyHook = &knServer_udpDestroyHook;
     }
 }
 
@@ -147,8 +150,8 @@ int knServer_init(
         return KNEVTERR;
     }
     if (server->flags & knUDP) {
-        server->on_udp.hashmap = knMap_create(knMap_basicHash, 8);
-        if (!server->on_udp.hashmap) {
+        server->on_udp.connections = knMap_create(knMap_basicHash, 8);
+        if (!server->on_udp.connections) {
             close(server->fd);
             return KNEVTMEM;
         }

@@ -7,6 +7,7 @@
 #include "kronknet/macros/errdef.h"
 #include "kronknet/callback/callback.h"
 #include "kronknet/macros/optimization.h"
+#include "kronknet/macros/types.h"
 #include "kronknet/server/server.h"
 #include <stddef.h>
 #include <stdint.h>
@@ -71,7 +72,11 @@ int knServer_run(
     if (!server) {
         return KNEVTARGS;
     }
-    knInfo(server->logger, "Server running on %s:%d", knServer_getIp(server), knServer_getPort(server));
+    knInfo(server->logger, "Server (mode=%s) running on %s:%d",
+        (server->flags & knTCP) ? "TCP" : "UDP",
+        knServer_getIp(server),
+        knServer_getPort(server)
+    );
     while (server->running) {
         if (knServer_runOnce(server, -1) != KNEVTOK) {
             knFatal(server->logger, "Unexpected fatal error encountered, exiting...");
