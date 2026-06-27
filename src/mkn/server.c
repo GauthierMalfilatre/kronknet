@@ -49,8 +49,12 @@ static char *mknServer_toString(mknServerClass *thus)
     if (!thus) {
         KN_PANIC("Bad parameter");
     }
-    size = snprintf(NULL, 0, "<%s (localhost:%d)>", thus->base.base.__name__, port(&thus->base));
-    buffer = malloc(sizeof(char) * (size + 1));
+    int _len = snprintf(NULL, 0, "<%s (localhost:%d)>", thus->base.base.__name__, port(&thus->base));
+    if (_len < 0) {
+        KN_PANIC("Formatting failed");
+    }
+    size = (size_t)_len;
+    buffer = malloc(size + 1);
     if (!buffer) {
         KN_PANIC("Memory allocation failed");
     }
