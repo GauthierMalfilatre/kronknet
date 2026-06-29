@@ -70,8 +70,11 @@
     ///////////////////////////////////////////////////////////////////////////
     typedef enum kronknet_flags_e {
 
-        knTCP = 0x01,  //!< TCP protocol
-        knUDP = 0x02,  //!< UDP protocol
+        knTCP = 0x01,   //!< TCP protocol
+        knUDP = 0x02,   //!< UDP protocol
+        
+        knIPv4 = 0x04,  //!< Use ipv4
+        knIPv6 = 0x08,  //!< Use ipv6
 
     } knFlags;
     ///////////////////////////////////////////////////////////////////////////

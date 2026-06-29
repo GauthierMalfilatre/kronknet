@@ -46,7 +46,6 @@ static int __knServer_bind(
 )
 {
     int opt = 1;
-    struct sockaddr_in addr;
     socklen_t len = sizeof(addr);
 
     server->addr.sin_family = AF_INET;
@@ -63,7 +62,7 @@ static int __knServer_bind(
     if (getsockname(server->fd, (struct sockaddr *)&addr, &len) == -1) {
         return KNEVTNET;
     }
-    if (inet_ntop(AF_INET, &addr.sin_addr, server->ip,
+    if (inet_ntop(AF_INET, &server->addr.sin_addr, server->ip,
         INET_ADDRSTRLEN) == NULL) {
         return KNEVTNET;
     }
@@ -121,12 +120,13 @@ int knServer_init(
     __knServer_basics(server, flags);
     __knServer_initHooks(server);
 
-    if (flags & knTCP && flags & knUDP) {
+    if (((flags & knTCP) && (flags & knUDP)) ||
+        ((false & knIPv4) && (flags & knIPv6))) {
         return KNEVTARGS;
     }
     if (flags & knTCP) type = SOCK_STREAM;
     else if (flags & knUDP) type = SOCK_DGRAM;
-    server->fd = socket(AF_INET, type, 0);
+    server->fd = socket(flags & knIPv4 ? AF_INET : AF_INET6, type, 0);
     if (server->fd == -1)
         return KNEVTNET;
 

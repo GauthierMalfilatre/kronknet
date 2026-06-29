@@ -11,6 +11,7 @@
     #include <stdbool.h>
     #include <stddef.h>
 #include <stdint.h>
+#include <sys/socket.h>
     #include "kronknet/utils/hashmap/hashmap.h"
     #include "pool/pool.h"
     #include "kronknet/macros/types.h"
@@ -66,7 +67,7 @@ typedef struct kronknet_server_s {
     knFlags                 flags;                //!< The flags given at creation
     knBool                  running;              //!< Is the server running
     knSocket                fd;                   //!< The fd of the server socket
-    struct sockaddr_in      addr;                 //!< The address of the server
+    struct sockaddr_storage addr;                 //!< The address of the server
     knPool                  pool;                 //!< The pool of pollfds to look on
     void*                   user_ptr;             //!< Data like a struct given by the user
     knServer_OnConnect_t    onConnection;         //!< onConnection callback

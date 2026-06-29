@@ -27,19 +27,19 @@ typedef int (*knConnection_sendHook)(knConnection *, const void *, size_t);
 ///////////////////////////////////////////////////////////////////////////////
 typedef struct kronknet_connection_s {
 
-    knBool                disconnected;        //!< Is disconnected ?
-    knSocket              fd;                  //!< The fd of the client (or the server in UDP mode)
-    knFlags               flags;               //!< The flags
-    size_t                id;                  //!< The id of the connection ( !same as fd )
-    socklen_t             addr_length;         //!< The length of the addr
-    struct sockaddr_in    addr;                //!< The actual addr
-    knPort                port;                //!< The port using by the connection
-    char                  ip[INET_ADDRSTRLEN]; //!< The well-formated ip adrr
-    uint64_t              last_data;           //!< The last time (ms)
-    void                 *user_ptr;            //!< The user datas (eg User struct ...)
-    knRBuff              *out_buff;            //!< The out buffer    
-    knConnection_sendHook sendHook;            //!< The send hook
-    short int            *evtptr;              //!< The ptr to the events in the pool
+    knBool                  disconnected;        //!< Is disconnected ?
+    knSocket                fd;                  //!< The fd of the client (or the server in UDP mode)
+    knFlags                 flags;               //!< The flags
+    size_t                  id;                  //!< The id of the connection ( !same as fd )
+    socklen_t               addr_length;         //!< The length of the addr
+    struct sockaddr_storage addr;                //!< The actual addr
+    knPort                  port;                //!< The port using by the connection
+    char                    ip[INET_ADDRSTRLEN]; //!< The well-formated ip adrr
+    uint64_t                last_data;           //!< The last time (ms)
+    void                   *user_ptr;            //!< The user datas (eg User struct ...)
+    knRBuff                *out_buff;            //!< The out buffer    
+    knConnection_sendHook   sendHook;            //!< The send hook
+    short int              *evtptr;              //!< The ptr to the events in the pool
     union {
         struct {} on_udp;  //!< On UDP datas
         struct {} on_tcp;  //!< On tcp datas

@@ -10,6 +10,7 @@
     #include "kronknet/macros/types.h"
     #include "kronknet/utils/rbuff/rbuff.h"
     #include <netinet/in.h>
+#include <sys/socket.h>
     #include "../utils/logger/logger.h"
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -27,7 +28,7 @@ typedef struct kronknet_client_s {
     void*                   user_ptr;      //!< The user data ?
     knRBuff*                buff;          //!< The out buffer (when send is not possible)
     short                   events;        //!< The events
-    struct sockaddr_in      addr;          //!< The address of the client
+    struct sockaddr_storage addr;          //!< The address of the client
     knClient_OnConnect_t    onConnection;  //!< The callback when the client is connected
     knClient_OnRead_t       onRead;        //!< The callback when the client receive data
     knClient_OnWrite_t      onWrite;       //!< The callback when the client has drained his internal buffer
